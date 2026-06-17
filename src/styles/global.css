@@ -62,7 +62,7 @@ body::before {
   background-image: var(--bg-image);
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-repeat: no-repeat;
 }
 
