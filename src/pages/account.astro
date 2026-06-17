@@ -115,6 +115,17 @@ import GsapAnimations from "@/components/GsapAnimations.astro";
     const manageBillingBtn = document.getElementById("manage-billing-btn");
     const logoutBtn = document.getElementById("logout-btn");
 
+    async function fetchWithTimeout(url, opts, ms) {
+      var controller = new AbortController();
+      var timer = setTimeout(function() { controller.abort(); }, ms || 8000);
+      try {
+        var res = await fetch(url, Object.assign({}, opts, { signal: controller.signal }));
+        return res;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
     async function checkAuth() {
       if (!authToken) {
         loadingState.classList.add("hidden");
@@ -123,13 +134,13 @@ import GsapAnimations from "@/components/GsapAnimations.astro";
       }
 
       try {
-        const res = await fetch(`${API_BASE}/verify`, {
-          headers: { Authorization: `Bearer ${authToken}` },
+        var res = await fetchWithTimeout(API_BASE + "/verify", {
+          headers: { Authorization: "Bearer " + authToken },
         });
 
         if (res.ok) {
-          const data = await res.json();
-          const isPro = data.sub_status === "pro" || data.sub_status === "active";
+          var data = await res.json();
+          var isPro = data.sub_status === "pro" || data.sub_status === "active";
           showDashboard(data.email, isPro);
         } else {
           localStorage.removeItem("zz_token");
@@ -138,6 +149,8 @@ import GsapAnimations from "@/components/GsapAnimations.astro";
           loginForm.classList.remove("hidden");
         }
       } catch (e) {
+        localStorage.removeItem("zz_token");
+        authToken = null;
         loadingState.classList.add("hidden");
         loginForm.classList.remove("hidden");
       }
@@ -166,13 +179,13 @@ import GsapAnimations from "@/components/GsapAnimations.astro";
       const endpoint = isRegisterMode ? "/register" : "/login";
 
       try {
-        const res = await fetch(`${API_BASE}${endpoint}`, {
+        var res = await fetchWithTimeout(API_BASE + endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email: email, password: password }),
         });
 
-        const data = await res.json();
+        var data = await res.json();
 
         if (!res.ok) {
           errorMsg.textContent = data.error || "something went wrong";
@@ -183,7 +196,7 @@ import GsapAnimations from "@/components/GsapAnimations.astro";
         localStorage.setItem("zz_token", data.token);
         authToken = data.token;
         loginForm.classList.add("hidden");
-        const isPro = data.sub_status === "pro" || data.sub_status === "active";
+        var isPro = data.sub_status === "pro" || data.sub_status === "active";
         showDashboard(email, isPro);
       } catch (e) {
         errorMsg.textContent = "cannot connect to server. try again later.";
@@ -204,14 +217,14 @@ import GsapAnimations from "@/components/GsapAnimations.astro";
     upgradeBtn.addEventListener("click", async (e) => {
       e.preventDefault();
       try {
-        const res = await fetch(`${API_BASE}/create-checkout-session`, {
+        var res = await fetchWithTimeout(API_BASE + "/create-checkout-session", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${authToken}`,
+            Authorization: "Bearer " + authToken,
           },
         });
-        const data = await res.json();
+        var data = await res.json();
         if (data.url) window.location.href = data.url;
       } catch (e) {
         errorMsg.textContent = "cannot connect to payment server.";
@@ -222,14 +235,14 @@ import GsapAnimations from "@/components/GsapAnimations.astro";
     manageBillingBtn.addEventListener("click", async (e) => {
       e.preventDefault();
       try {
-        const res = await fetch(`${API_BASE}/create-portal-session`, {
+        var res = await fetchWithTimeout(API_BASE + "/create-portal-session", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${authToken}`,
+            Authorization: "Bearer " + authToken,
           },
         });
-        const data = await res.json();
+        var data = await res.json();
         if (data.url) window.location.href = data.url;
       } catch (e) {
         errorMsg.textContent = "cannot connect to billing portal.";
