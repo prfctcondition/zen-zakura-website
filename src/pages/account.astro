@@ -256,7 +256,7 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
     avatarInput.addEventListener("change", function() {
       var file = this.files[0];
       if (!file) return;
-      if (file.size > 512 * 1024) { alert("file too large (max 512KB)"); return; }
+      if (file.size > 1024 * 1024) { alert("file too large (max 1MB)"); return; }
 
       var formData = new FormData();
       formData.append("avatar", file);
