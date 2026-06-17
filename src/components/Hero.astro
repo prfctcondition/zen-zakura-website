@@ -1,12 +1,14 @@
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-  <div class="relative z-10 w-full max-w-4xl mx-auto px-4">
-    <div class="glass p-8 md:p-10 text-center card-glow" data-tilt data-tilt-max="2" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.05">
-      <div class="flex justify-center mb-6">
-        <img src="/logo_light.webp" alt="zen zakura macro" class="w-auto max-w-full block [html[data-theme='dark']_&]:hidden" />
-        <img src="/logo_dark.webp" alt="zen zakura macro" class="w-auto max-w-full hidden [html[data-theme='dark']_&]:block" />
-      </div>
+  <div class="relative z-10 w-full max-w-4xl mx-auto px-4 flex flex-col items-center">
+    <!-- Logo floating above glass panel, no glass bg -->
+    <div class="flex justify-center mb-6">
+      <img src="/logo_light.webp" alt="zen zakura macro" class="w-auto max-w-[300px] sm:max-w-[400px] md:max-w-[500px] block [html[data-theme='dark']_&]:hidden" />
+      <img src="/logo_dark.webp" alt="zen zakura macro" class="w-auto max-w-[300px] sm:max-w-[400px] md:max-w-[500px] hidden [html[data-theme='dark']_&]:block" />
+    </div>
 
-      <p class="text-base md:text-lg text-[var(--color-text-secondary)] max-w-lg mx-auto mb-8 leading-relaxed">
+    <!-- Small glass panel below -->
+    <div class="glass px-6 py-5 md:px-8 md:py-6 text-center card-glow max-w-lg w-full" data-tilt data-tilt-max="2" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.05">
+      <p class="text-sm md:text-base text-[var(--color-text-secondary)] leading-relaxed mb-5">
         professional macro automation tool with elegant design.
         record, edit, and automate with japanese precision.
       </p>
@@ -16,7 +18,7 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           download free
         </a>
-        <a href="#pricing" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-[var(--radius-button)] border border-[var(--color-text)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--glass-bg)] transition-all duration-200 no-underline cursor-pointer">
+        <a href="#pricing" class="inline-flex items-center gap-2 px-5 py-2 rounded-[var(--radius-button)] border border-[var(--color-text)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--glass-bg)] transition-all duration-200 no-underline cursor-pointer">
           upgrade to pro
         </a>
       </div>
