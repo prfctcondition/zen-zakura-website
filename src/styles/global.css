@@ -62,16 +62,16 @@ a, button { text-transform: lowercase; }
 /* ── Glassmorphism ── */
 .glass {
   background: var(--glass-bg) !important;
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
   border: var(--glass-border) !important;
   border-radius: var(--radius-panel) !important;
 }
 
 .glass-strong {
   background: var(--glass-strong-bg) !important;
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
   border: var(--glass-border) !important;
   border-radius: var(--radius-panel) !important;
 }
