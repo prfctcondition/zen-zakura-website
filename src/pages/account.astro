@@ -2,9 +2,11 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Navbar from "@/components/Navbar.astro";
 import GsapAnimations from "@/components/GsapAnimations.astro";
+import SakuraPetals from "@/components/SakuraPetals.astro";
 ---
 
 <BaseLayout title="account — zen zakura マクロ">
+  <SakuraPetals />
   <Navbar />
   <main class="min-h-screen flex items-center justify-center px-4 py-20">
     <div class="relative z-10 w-full max-w-lg" id="account-app">
@@ -17,9 +19,10 @@ import GsapAnimations from "@/components/GsapAnimations.astro";
       <!-- Login form -->
       <div id="login-form" class="glass p-10 card-glow hidden" data-tilt data-tilt-max="1.3" data-tilt-speed="270" data-tilt-glare="true" data-tilt-max-glare="0.03">
         <div class="text-center mb-8">
-          <h1 class="text-xl font-bold text-[var(--color-text)] mb-1">
-            zen zakura <span class="text-[var(--color-text-secondary)]">マクロ</span>
-          </h1>
+          <div class="flex justify-center mb-4">
+            <img src="/logo_light.webp" alt="zen zakura macro" class="w-auto max-w-[200px] block [html[data-theme='dark']_&]:hidden" />
+            <img src="/logo_dark.webp" alt="zen zakura macro" class="w-auto max-w-[200px] hidden [html[data-theme='dark']_&]:block" />
+          </div>
           <p class="text-sm text-[var(--color-text-secondary)]">sign in to your account</p>
         </div>
 
@@ -47,166 +50,325 @@ import GsapAnimations from "@/components/GsapAnimations.astro";
 
           <div id="error-message" class="text-xs text-[var(--color-text)] hidden"></div>
 
-          <button
-            type="submit"
-            class="btn-primary w-full justify-center py-2.5"
-          >
-            sign in
-          </button>
+          <button type="submit" class="btn-primary w-full justify-center py-2.5">sign in</button>
         </form>
 
         <div class="mt-4 text-center">
-          <button
-            id="toggle-auth-mode"
-            class="text-xs text-[var(--color-text)] hover:opacity-70 transition-opacity cursor-pointer bg-transparent border-none"
-          >
+          <button id="toggle-auth-mode" class="text-xs text-[var(--color-text)] hover:opacity-70 transition-opacity cursor-pointer bg-transparent border-none">
             don't have an account? register
           </button>
         </div>
       </div>
 
       <!-- Dashboard -->
-      <div id="dashboard" class="glass p-10 card-glow hidden" data-tilt data-tilt-max="1.3" data-tilt-speed="270" data-tilt-glare="true" data-tilt-max-glare="0.03">
-        <div class="text-center mb-6">
-          <div class="w-14 h-14 rounded-full border border-[var(--color-text)] mx-auto mb-3 flex items-center justify-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-[var(--color-text)]">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
+      <div id="dashboard" class="hidden">
+        <!-- Profile card -->
+        <div class="glass p-8 card-glow text-center mb-4" data-tilt data-tilt-max="1.3" data-tilt-speed="270" data-tilt-glare="true" data-tilt-max-glare="0.03">
+          <!-- Avatar -->
+          <div class="relative inline-block mb-4">
+            <div class="w-20 h-20 rounded-full border-2 border-[var(--color-text)] overflow-hidden mx-auto flex items-center justify-center bg-[var(--input-bg)]" id="avatar-container">
+              <svg id="avatar-fallback" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-[var(--color-text-secondary)]">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              <img id="avatar-img" class="w-full h-full object-cover hidden" />
+            </div>
+            <label for="avatar-input" class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-[var(--color-text)] text-white flex items-center justify-center cursor-pointer text-[10px] hover:opacity-80 transition-opacity">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+            </label>
+            <input id="avatar-input" type="file" accept="image/*" class="hidden" />
           </div>
+
           <h2 class="text-lg font-bold text-[var(--color-text)]" id="dashboard-email">user@example.com</h2>
-          <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[var(--radius-button)] text-[10px] mt-1 border border-[var(--color-text)] text-[var(--color-text)]" id="dashboard-tier-badge">
-            free
+          <p class="text-sm text-[var(--color-text-secondary)]" id="dashboard-username"></p>
+
+          <div class="flex items-center justify-center gap-2 mt-2">
+            <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[var(--radius-button)] text-[10px] border border-[var(--color-text)] text-[var(--color-text)]" id="dashboard-tier-badge">free</div>
+            <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[var(--radius-button)] text-[10px] border border-[var(--color-text)] text-[var(--color-text-secondary)]" id="dashboard-expiry" style="display:none"></div>
+          </div>
+
+          <!-- Username edit -->
+          <div class="mt-4 flex items-center justify-center gap-2">
+            <input id="username-input" type="text" placeholder="username" maxlength="50" class="w-40 px-2 py-1 rounded-[var(--radius-button)] bg-[var(--input-bg)] text-[var(--color-text)] text-xs border border-[var(--color-text)] focus:outline-none focus:ring-1 focus:ring-[var(--color-text)] hidden" />
+            <button id="edit-username-btn" class="text-xs text-[var(--color-text-secondary)] hover:opacity-70 transition-opacity cursor-pointer bg-transparent border-none">edit username</button>
+            <button id="save-username-btn" class="text-xs text-[var(--color-text)] hover:opacity-70 transition-opacity cursor-pointer bg-transparent border-none hidden">save</button>
           </div>
         </div>
 
-        <div class="space-y-3">
-          <a href="#" id="upgrade-btn" class="btn-primary w-full justify-center no-underline">
-            upgrade to pro
-          </a>
-          <a href="#" id="manage-billing-btn" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-[var(--radius-button)] border border-[var(--color-text)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--glass-bg)] transition-all duration-200 no-underline cursor-pointer">
-            manage billing
-          </a>
-          <button id="logout-btn" class="w-full py-2.5 rounded-[var(--radius-button)] text-sm text-[var(--color-text-secondary)] hover:opacity-60 transition-all duration-200 cursor-pointer bg-transparent border border-[var(--color-text)]">
-            log out
-          </button>
+        <!-- Actions card -->
+        <div class="glass p-6 card-glow space-y-3 mb-4" data-tilt data-tilt-max="1.3" data-tilt-speed="270" data-tilt-glare="true" data-tilt-max-glare="0.03">
+          <a href="#" id="upgrade-btn" class="btn-primary w-full justify-center no-underline">upgrade to pro</a>
+          <a href="#" id="manage-billing-btn" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-[var(--radius-button)] border border-[var(--color-text)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--glass-bg)] transition-all duration-200 no-underline cursor-pointer">manage billing</a>
         </div>
+
+        <!-- Password change card -->
+        <div class="glass p-6 card-glow mb-4" data-tilt data-tilt-max="1.3" data-tilt-speed="270" data-tilt-glare="true" data-tilt-max-glare="0.03">
+          <p class="text-sm font-bold text-[var(--color-text)] mb-3">change password</p>
+          <div class="space-y-2">
+            <input id="pw-current" type="password" placeholder="current password" class="w-full px-3 py-2 rounded-[var(--radius-button)] bg-[var(--input-bg)] text-[var(--color-text)] text-xs border border-[var(--color-text)] focus:outline-none focus:ring-1 focus:ring-[var(--color-text)]" />
+            <input id="pw-new" type="password" placeholder="new password (min 6 chars)" class="w-full px-3 py-2 rounded-[var(--radius-button)] bg-[var(--input-bg)] text-[var(--color-text)] text-xs border border-[var(--color-text)] focus:outline-none focus:ring-1 focus:ring-[var(--color-text)]" />
+            <input id="pw-confirm" type="password" placeholder="confirm new password" class="w-full px-3 py-2 rounded-[var(--radius-button)] bg-[var(--input-bg)] text-[var(--color-text)] text-xs border border-[var(--color-text)] focus:outline-none focus:ring-1 focus:ring-[var(--color-text)]" />
+            <button id="change-pw-btn" class="w-full py-2 rounded-[var(--radius-button)] border border-[var(--color-text)] text-[var(--color-text)] text-xs font-medium hover:bg-[var(--glass-bg)] transition-all duration-200 cursor-pointer bg-transparent">change password</button>
+            <div id="pw-error" class="text-xs text-[var(--color-text)] hidden"></div>
+            <div id="pw-success" class="text-xs text-[var(--color-text-secondary)] hidden">password changed successfully</div>
+          </div>
+        </div>
+
+        <!-- Download card -->
+        <div class="glass p-6 card-glow mb-4" data-tilt data-tilt-max="1.3" data-tilt-speed="270" data-tilt-glare="true" data-tilt-max-glare="0.03">
+          <p class="text-sm font-bold text-[var(--color-text)] mb-2">download</p>
+          <p class="text-xs text-[var(--color-text-secondary)] mb-3">latest version: v1.0.4 — 15 mb</p>
+          <a href="#" class="btn-primary no-underline w-full justify-center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            download latest
+          </a>
+          <a href="#" class="block text-center text-xs text-[var(--color-text-tertiary)] mt-2 hover:opacity-70 transition-opacity no-underline">changelog</a>
+        </div>
+
+        <!-- Logout -->
+        <button id="logout-btn" class="w-full py-3 rounded-[var(--radius-button)] text-sm text-[var(--color-text-secondary)] hover:opacity-60 transition-all duration-200 cursor-pointer bg-transparent border border-[var(--color-text)]">log out</button>
       </div>
     </div>
   </main>
 
   <script>
-    const API_BASE = "https://zen-zakura-api.zen-zakura.workers.dev";
+    var API_BASE = "https://zen-zakura-api.zen-zakura.workers.dev";
 
-    let isRegisterMode = false;
-    let authToken = localStorage.getItem("zz_token");
-
-    const loginForm = document.getElementById("login-form");
-    const dashboard = document.getElementById("dashboard");
-    const loadingState = document.getElementById("loading-state");
-    const authForm = document.getElementById("auth-form");
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
-    const errorMsg = document.getElementById("error-message");
-    const toggleBtn = document.getElementById("toggle-auth-mode");
-    const dashboardEmail = document.getElementById("dashboard-email");
-    const tierBadge = document.getElementById("dashboard-tier-badge");
-    const upgradeBtn = document.getElementById("upgrade-btn");
-    const manageBillingBtn = document.getElementById("manage-billing-btn");
-    const logoutBtn = document.getElementById("logout-btn");
-
-    async function fetchWithTimeout(url, opts, ms) {
+    function fetchWithTimeout(url, opts, ms) {
       var controller = new AbortController();
       var timer = setTimeout(function() { controller.abort(); }, ms || 8000);
-      try {
-        var res = await fetch(url, Object.assign({}, opts, { signal: controller.signal }));
-        return res;
-      } finally {
-        clearTimeout(timer);
-      }
+      opts = opts || {};
+      opts.signal = controller.signal;
+      return fetch(url, opts).then(function(r) { clearTimeout(timer); return r; });
     }
 
-    async function checkAuth() {
+    var isRegisterMode = false;
+    var authToken = localStorage.getItem("zz_token");
+
+    var loginForm = document.getElementById("login-form");
+    var dashboard = document.getElementById("dashboard");
+    var loadingState = document.getElementById("loading-state");
+    var authForm = document.getElementById("auth-form");
+    var emailInput = document.getElementById("email");
+    var passwordInput = document.getElementById("password");
+    var errorMsg = document.getElementById("error-message");
+    var toggleBtn = document.getElementById("toggle-auth-mode");
+
+    var dashboardEmail = document.getElementById("dashboard-email");
+    var dashboardUsername = document.getElementById("dashboard-username");
+    var tierBadge = document.getElementById("dashboard-tier-badge");
+    var expiryBadge = document.getElementById("dashboard-expiry");
+    var upgradeBtn = document.getElementById("upgrade-btn");
+    var manageBillingBtn = document.getElementById("manage-billing-btn");
+    var logoutBtn = document.getElementById("logout-btn");
+    var avatarImg = document.getElementById("avatar-img");
+    var avatarFallback = document.getElementById("avatar-fallback");
+    var avatarInput = document.getElementById("avatar-input");
+    var usernameInput = document.getElementById("username-input");
+    var editUsernameBtn = document.getElementById("edit-username-btn");
+    var saveUsernameBtn = document.getElementById("save-username-btn");
+
+    var pwCurrent = document.getElementById("pw-current");
+    var pwNew = document.getElementById("pw-new");
+    var pwConfirm = document.getElementById("pw-confirm");
+    var changePwBtn = document.getElementById("change-pw-btn");
+    var pwError = document.getElementById("pw-error");
+    var pwSuccess = document.getElementById("pw-success");
+
+    function showError(el, msg) {
+      el.textContent = msg;
+      el.classList.remove("hidden");
+    }
+
+    function checkAuth() {
       if (!authToken) {
         loadingState.classList.add("hidden");
         loginForm.classList.remove("hidden");
         return;
       }
 
-      try {
-        var res = await fetchWithTimeout(API_BASE + "/verify", {
-          headers: { Authorization: "Bearer " + authToken },
-        });
-
-        if (res.ok) {
-          var data = await res.json();
-          var isPro = data.sub_status === "pro" || data.sub_status === "active";
-          showDashboard(data.email, isPro);
-        } else {
-          localStorage.removeItem("zz_token");
-          authToken = null;
-          loadingState.classList.add("hidden");
-          loginForm.classList.remove("hidden");
-        }
-      } catch (e) {
+      fetchWithTimeout(API_BASE + "/verify", {
+        headers: { Authorization: "Bearer " + authToken },
+      }).then(function(res) {
+        if (res.ok) return res.json().then(function(data) { showDashboard(data); });
+        throw new Error("not ok");
+      }).catch(function() {
         localStorage.removeItem("zz_token");
         authToken = null;
         loadingState.classList.add("hidden");
         loginForm.classList.remove("hidden");
-      }
+      });
     }
 
-    function showDashboard(email, isPro) {
+    function showDashboard(data) {
       loadingState.classList.add("hidden");
       dashboard.classList.remove("hidden");
-      dashboardEmail.textContent = email;
+
+      dashboardEmail.textContent = data.email;
+
+      if (data.username) {
+        dashboardUsername.textContent = "@" + data.username;
+        dashboardUsername.classList.remove("hidden");
+      } else {
+        dashboardUsername.classList.add("hidden");
+      }
+
+      var isPro = data.sub_status === "pro" || data.sub_status === "active";
 
       if (isPro) {
         tierBadge.textContent = "pro";
         upgradeBtn.classList.add("hidden");
       } else {
-        tierBadge.textContent = "free";
+        tierBadge.textContent = data.sub_status === "expired" ? "expired" : "free";
         upgradeBtn.classList.remove("hidden");
+      }
+
+      if (data.sub_expires) {
+        var exp = new Date(data.sub_expires);
+        var now = new Date();
+        var days = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
+        expiryBadge.style.display = "inline-flex";
+        if (days > 0) {
+          expiryBadge.textContent = days + " days left";
+        } else if (days === 0) {
+          expiryBadge.textContent = "expires today";
+        } else {
+          expiryBadge.textContent = "expired";
+        }
+      } else {
+        expiryBadge.style.display = "none";
+      }
+
+      // Avatar
+      if (data.avatar_key) {
+        avatarImg.src = API_BASE + "/avatar/get?email=" + encodeURIComponent(data.email);
+        avatarImg.classList.remove("hidden");
+        avatarFallback.classList.add("hidden");
+      }
+
+      // Username edit state
+      if (data.username) {
+        usernameInput.value = data.username;
       }
     }
 
-    authForm.addEventListener("submit", async (e) => {
+    // ── Avatar upload ──
+    avatarInput.addEventListener("change", function() {
+      var file = this.files[0];
+      if (!file) return;
+      if (file.size > 512 * 1024) { alert("file too large (max 512KB)"); return; }
+
+      var formData = new FormData();
+      formData.append("avatar", file);
+
+      fetchWithTimeout(API_BASE + "/avatar/upload", {
+        method: "POST",
+        headers: { Authorization: "Bearer " + authToken },
+        body: formData,
+      }).then(function(res) {
+        if (res.ok) {
+          avatarImg.src = URL.createObjectURL(file);
+          avatarImg.classList.remove("hidden");
+          avatarFallback.classList.add("hidden");
+        }
+      }).catch(function() {});
+    });
+
+    // ── Username edit ──
+    editUsernameBtn.addEventListener("click", function() {
+      usernameInput.classList.remove("hidden");
+      saveUsernameBtn.classList.remove("hidden");
+      editUsernameBtn.classList.add("hidden");
+      usernameInput.focus();
+    });
+
+    saveUsernameBtn.addEventListener("click", function() {
+      var val = usernameInput.value.trim();
+      fetchWithTimeout(API_BASE + "/user/update", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authToken,
+        },
+        body: JSON.stringify({ username: val || null }),
+      }).then(function(res) {
+        if (res.ok) {
+          dashboardUsername.textContent = val ? "@" + val : "";
+          dashboardUsername.classList.toggle("hidden", !val);
+          usernameInput.classList.add("hidden");
+          saveUsernameBtn.classList.add("hidden");
+          editUsernameBtn.classList.remove("hidden");
+        }
+      }).catch(function() {});
+    });
+
+    // ── Password change ──
+    changePwBtn.addEventListener("click", function() {
+      pwError.classList.add("hidden");
+      pwSuccess.classList.add("hidden");
+
+      var current = pwCurrent.value;
+      var next = pwNew.value;
+      var confirm = pwConfirm.value;
+
+      if (!current || !next) { showError(pwError, "fill all fields"); return; }
+      if (next.length < 6) { showError(pwError, "new password too short (min 6 chars)"); return; }
+      if (next !== confirm) { showError(pwError, "passwords do not match"); return; }
+
+      fetchWithTimeout(API_BASE + "/change-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authToken,
+        },
+        body: JSON.stringify({ currentPassword: current, newPassword: next }),
+      }).then(function(res) {
+        if (res.ok) {
+          pwCurrent.value = "";
+          pwNew.value = "";
+          pwConfirm.value = "";
+          pwSuccess.classList.remove("hidden");
+        } else {
+          return res.json().then(function(d) { showError(pwError, d.error || "error"); });
+        }
+      }).catch(function() {
+        showError(pwError, "cannot connect to server");
+      });
+    });
+
+    // ── Login / Register ──
+    authForm.addEventListener("submit", function(e) {
       e.preventDefault();
       errorMsg.classList.add("hidden");
 
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
-      const endpoint = isRegisterMode ? "/register" : "/login";
+      var email = emailInput.value.trim();
+      var password = passwordInput.value;
+      var endpoint = isRegisterMode ? "/register" : "/login";
 
-      try {
-        var res = await fetchWithTimeout(API_BASE + endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: email, password: password }),
+      fetchWithTimeout(API_BASE + endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, password: password }),
+      }).then(function(res) {
+        return res.json().then(function(data) {
+          if (!res.ok) {
+            showError(errorMsg, data.error || "something went wrong");
+            return;
+          }
+
+          localStorage.setItem("zz_token", data.token);
+          authToken = data.token;
+          loginForm.classList.add("hidden");
+          showDashboard(data);
         });
-
-        var data = await res.json();
-
-        if (!res.ok) {
-          errorMsg.textContent = data.error || "something went wrong";
-          errorMsg.classList.remove("hidden");
-          return;
-        }
-
-        localStorage.setItem("zz_token", data.token);
-        authToken = data.token;
-        loginForm.classList.add("hidden");
-        var isPro = data.sub_status === "pro" || data.sub_status === "active";
-        showDashboard(email, isPro);
-      } catch (e) {
-        errorMsg.textContent = "cannot connect to server. try again later.";
-        errorMsg.classList.remove("hidden");
-      }
+      }).catch(function() {
+        showError(errorMsg, "cannot connect to server. try again later.");
+      });
     });
 
-    toggleBtn.addEventListener("click", () => {
+    toggleBtn.addEventListener("click", function() {
       isRegisterMode = !isRegisterMode;
-      const btn = authForm.querySelector('button[type="submit"]');
+      var btn = authForm.querySelector('button[type="submit"]');
       btn.textContent = isRegisterMode ? "register" : "sign in";
       toggleBtn.textContent = isRegisterMode
         ? "already have an account? sign in"
@@ -214,7 +376,8 @@ import GsapAnimations from "@/components/GsapAnimations.astro";
       errorMsg.classList.add("hidden");
     });
 
-    upgradeBtn.addEventListener("click", async (e) => {
+    // ── Stripe ──
+    upgradeBtn.addEventListener("click", async function(e) {
       e.preventDefault();
       try {
         var res = await fetchWithTimeout(API_BASE + "/create-checkout-session", {
@@ -227,12 +390,11 @@ import GsapAnimations from "@/components/GsapAnimations.astro";
         var data = await res.json();
         if (data.url) window.location.href = data.url;
       } catch (e) {
-        errorMsg.textContent = "cannot connect to payment server.";
-        errorMsg.classList.remove("hidden");
+        showError(errorMsg, "cannot connect to payment server.");
       }
     });
 
-    manageBillingBtn.addEventListener("click", async (e) => {
+    manageBillingBtn.addEventListener("click", async function(e) {
       e.preventDefault();
       try {
         var res = await fetchWithTimeout(API_BASE + "/create-portal-session", {
@@ -245,12 +407,11 @@ import GsapAnimations from "@/components/GsapAnimations.astro";
         var data = await res.json();
         if (data.url) window.location.href = data.url;
       } catch (e) {
-        errorMsg.textContent = "cannot connect to billing portal.";
-        errorMsg.classList.remove("hidden");
+        showError(errorMsg, "cannot connect to billing portal.");
       }
     });
 
-    logoutBtn.addEventListener("click", () => {
+    logoutBtn.addEventListener("click", function() {
       localStorage.removeItem("zz_token");
       authToken = null;
       dashboard.classList.add("hidden");
