@@ -1,18 +1,37 @@
 ﻿---
-// GSAP scroll animations
+// GSAP scroll animations + Lenis + Splitting text reveal
 ---
 
 <script>
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
+import VanillaTilt from "vanilla-tilt";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function initAnimations() {
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (prefersReduced) return;
 
-  // Feature cards stagger
+  // ── Lenis smooth scroll ──
+  if (!prefersReduced) {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)) },
+      orientation: 'vertical',
+      smoothWheel: true,
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add(function(time) {
+      lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  // ── Feature cards stagger ──
   gsap.from("#features .group", {
     y: 30,
     opacity: 0,
@@ -25,8 +44,8 @@ function initAnimations() {
     },
   });
 
-  // Section headers
-  gsap.utils.toArray("section > div > .text-center").forEach((header) => {
+  // ── Section headers blanket fade ──
+  gsap.utils.toArray("section > div > .text-center").forEach(function(header) {
     gsap.from(header, {
       y: 20,
       opacity: 0,
@@ -39,8 +58,8 @@ function initAnimations() {
     });
   });
 
-  // Demo mockups
-  gsap.from("#demo .glass", {
+  // ── Demo cards ──
+  gsap.from("#demo .grid > .glass", {
     y: 30,
     opacity: 0,
     duration: 0.5,
@@ -52,8 +71,8 @@ function initAnimations() {
     },
   });
 
-  // Pricing cards
-  gsap.from("#pricing .glass, #pricing .glass-strong", {
+  // ── Pricing cards ──
+  gsap.from("#pricing .grid > .glass, #pricing .grid > .glass-strong", {
     y: 20,
     opacity: 0,
     duration: 0.5,
@@ -65,7 +84,7 @@ function initAnimations() {
     },
   });
 
-  // FAQ items
+  // ── FAQ items ──
   gsap.from("#faq details", {
     y: 10,
     opacity: 0,
@@ -78,8 +97,8 @@ function initAnimations() {
     },
   });
 
-  // CTA section
-  gsap.from("#download .max-w-2xl", {
+  // ── CTA ──
+  gsap.from("#download .glass", {
     scale: 0.97,
     opacity: 0,
     duration: 0.6,
@@ -89,6 +108,11 @@ function initAnimations() {
       start: "top 80%",
     },
   });
+
+  // ── Init vanilla-tilt on tilt-enabled elements ──
+  if (!prefersReduced) {
+    VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {});
+  }
 
   ScrollTrigger.refresh();
 }

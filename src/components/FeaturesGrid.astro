@@ -43,11 +43,11 @@ const features = [
 <section id="features" class="relative py-24 md:py-32 px-4">
   <div class="max-w-6xl mx-auto">
     <div class="glass p-6 md:p-8 text-center mb-16 max-w-2xl mx-auto">
-      <p class="text-xs text-[var(--color-text)] opacity-70 mb-2">features</p>
+      <p class="text-xs text-[var(--color-text-secondary)] mb-2">features</p>
       <h2 class="text-2xl md:text-4xl font-bold text-[var(--color-text)] mb-3 tracking-tight">
-        crafted with <span class="opacity-70">precision</span>
+        crafted with <span class="text-[var(--color-text-secondary)]">precision</span>
       </h2>
-      <p class="text-sm text-[var(--color-text-muted)] max-w-md mx-auto">
+      <p class="text-sm text-[var(--color-text-secondary)] max-w-md mx-auto">
         every feature designed to make your workflow faster, smoother, and more elegant.
       </p>
     </div>
@@ -55,10 +55,15 @@ const features = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 auto-rows-[200px]">
       {features.map((f) => (
         <div
-          class={`group glass p-5 md:p-6 overflow-hidden transition-all duration-300 ${f.span} ${f.pro ? "opacity-70 hover:opacity-100" : ""}`}
+          class={`group glass p-5 md:p-6 overflow-hidden transition-all duration-300 card-glow ${f.span}`}
+          data-tilt
+          data-tilt-max="3"
+          data-tilt-speed="300"
+          data-tilt-glare="true"
+          data-tilt-max-glare="0.1"
         >
           {f.pro && (
-            <div class="mb-3 text-[10px] tracking-wider opacity-60">pro</div>
+            <div class="mb-2 text-[10px] tracking-wider text-[var(--color-text)]">pro</div>
           )}
 
           <div class="flex items-start gap-3 h-full">
@@ -84,7 +89,7 @@ const features = [
             </div>
             <div>
               <h3 class="text-base font-bold text-[var(--color-text)] mb-1">{f.title}</h3>
-              <p class="text-sm text-[var(--color-text-muted)] leading-relaxed">{f.desc}</p>
+              <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{f.desc}</p>
             </div>
           </div>
         </div>

@@ -8,37 +8,37 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
       <!-- Loading state -->
       <div id="loading-state" class="glass p-8 text-center">
         <div class="animate-spin w-5 h-5 border border-[var(--color-text)] border-t-transparent rounded-full mx-auto mb-3" />
-        <p class="text-sm text-[var(--color-text-muted)]">loading...</p>
+        <p class="text-sm text-[var(--color-text-secondary)]">loading...</p>
       </div>
 
       <!-- Login form -->
       <div id="login-form" class="glass p-8 hidden">
         <div class="text-center mb-8">
           <h1 class="text-xl font-bold text-[var(--color-text)] mb-1">
-            zen zakura <span class="opacity-70">マクロ</span>
+            zen zakura <span class="text-[var(--color-text-secondary)]">マクロ</span>
           </h1>
-          <p class="text-sm text-[var(--color-text-muted)]">sign in to your account</p>
+          <p class="text-sm text-[var(--color-text-secondary)]">sign in to your account</p>
         </div>
 
         <form id="auth-form" class="space-y-4">
           <div>
-            <label for="email" class="block text-xs text-[var(--color-text-muted)] mb-1.5">email</label>
+            <label for="email" class="block text-xs text-[var(--color-text-secondary)] mb-1.5">email</label>
             <input
               id="email"
               type="email"
               required
               placeholder="you@example.com"
-              class="w-full px-4 py-2.5 rounded-[var(--radius-button)] bg-[var(--input-bg)] text-[var(--color-text)] text-sm placeholder:text-[var(--color-text-dim)] focus:outline-none focus:ring-1 focus:ring-[var(--color-text)] transition-all duration-200 border border-[var(--color-text)]"
+              class="w-full px-4 py-2.5 rounded-[var(--radius-button)] bg-[var(--input-bg)] text-[var(--color-text)] text-sm placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-text)] transition-all duration-200 border border-[var(--color-text)]"
             />
           </div>
           <div>
-            <label for="password" class="block text-xs text-[var(--color-text-muted)] mb-1.5">password</label>
+            <label for="password" class="block text-xs text-[var(--color-text-secondary)] mb-1.5">password</label>
             <input
               id="password"
               type="password"
               required
               placeholder="••••••••"
-              class="w-full px-4 py-2.5 rounded-[var(--radius-button)] bg-[var(--input-bg)] text-[var(--color-text)] text-sm placeholder:text-[var(--color-text-dim)] focus:outline-none focus:ring-1 focus:ring-[var(--color-text)] transition-all duration-200 border border-[var(--color-text)]"
+              class="w-full px-4 py-2.5 rounded-[var(--radius-button)] bg-[var(--input-bg)] text-[var(--color-text)] text-sm placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-text)] transition-all duration-200 border border-[var(--color-text)]"
             />
           </div>
 
@@ -46,7 +46,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
           <button
             type="submit"
-            class="w-full py-2.5 rounded-[var(--radius-button)] bg-[var(--color-text)] text-white text-sm font-medium hover:opacity-80 transition-all duration-200 cursor-pointer"
+            class="btn-primary w-full justify-center py-2.5"
           >
             sign in
           </button>
@@ -66,25 +66,25 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
       <div id="dashboard" class="glass p-8 hidden">
         <div class="text-center mb-6">
           <div class="w-14 h-14 rounded-full border border-[var(--color-text)] mx-auto mb-3 flex items-center justify-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="opacity-70">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-[var(--color-text)]">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
               <circle cx="12" cy="7" r="4"/>
             </svg>
           </div>
           <h2 class="text-lg font-bold text-[var(--color-text)]" id="dashboard-email">user@example.com</h2>
-          <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[var(--radius-button)] text-[10px] mt-1 border border-[var(--color-text)]" id="dashboard-tier-badge">
+          <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[var(--radius-button)] text-[10px] mt-1 border border-[var(--color-text)] text-[var(--color-text)]" id="dashboard-tier-badge">
             free
           </div>
         </div>
 
         <div class="space-y-3">
-          <a href="#" id="upgrade-btn" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-[var(--radius-button)] bg-[var(--color-text)] text-white text-sm font-medium hover:opacity-80 transition-all duration-200 no-underline cursor-pointer">
+          <a href="#" id="upgrade-btn" class="btn-primary w-full justify-center no-underline">
             upgrade to pro
           </a>
           <a href="#" id="manage-billing-btn" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-[var(--radius-button)] border border-[var(--color-text)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--glass-bg)] transition-all duration-200 no-underline cursor-pointer">
             manage billing
           </a>
-          <button id="logout-btn" class="w-full py-2.5 rounded-[var(--radius-button)] text-sm text-[var(--color-text-muted)] hover:opacity-60 hover:bg-red-500/5 transition-all duration-200 cursor-pointer bg-transparent border border-[var(--color-text)] opacity-50">
+          <button id="logout-btn" class="w-full py-2.5 rounded-[var(--radius-button)] text-sm text-[var(--color-text-secondary)] hover:opacity-60 transition-all duration-200 cursor-pointer bg-transparent border border-[var(--color-text)]">
             log out
           </button>
         </div>
@@ -145,14 +145,13 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
     function showDashboard(email, isPro) {
       loadingState.classList.add("hidden");
       dashboard.classList.remove("hidden");
-
       dashboardEmail.textContent = email;
 
       if (isPro) {
-        tierBadge.innerHTML = `pro`;
+        tierBadge.textContent = "pro";
         upgradeBtn.classList.add("hidden");
       } else {
-        tierBadge.innerHTML = `free`;
+        tierBadge.textContent = "free";
         upgradeBtn.classList.remove("hidden");
       }
     }
@@ -182,7 +181,6 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
         localStorage.setItem("zz_token", data.token);
         authToken = data.token;
-
         loginForm.classList.add("hidden");
         const isPro = data.sub_status === "pro" || data.sub_status === "active";
         showDashboard(email, isPro);
@@ -213,9 +211,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
           },
         });
         const data = await res.json();
-        if (data.url) {
-          window.location.href = data.url;
-        }
+        if (data.url) window.location.href = data.url;
       } catch (e) {
         errorMsg.textContent = "cannot connect to payment server.";
         errorMsg.classList.remove("hidden");
@@ -233,9 +229,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
           },
         });
         const data = await res.json();
-        if (data.url) {
-          window.location.href = data.url;
-        }
+        if (data.url) window.location.href = data.url;
       } catch (e) {
         errorMsg.textContent = "cannot connect to billing portal.";
         errorMsg.classList.remove("hidden");

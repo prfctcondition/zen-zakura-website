@@ -26,22 +26,22 @@ const faqs = [
 <section id="faq" class="relative py-24 md:py-32 px-4">
   <div class="max-w-3xl mx-auto">
     <div class="glass p-6 md:p-8 text-center mb-16 max-w-2xl mx-auto">
-      <p class="text-xs text-[var(--color-text)] opacity-70 mb-2">faq</p>
+      <p class="text-xs text-[var(--color-text-secondary)] mb-2">faq</p>
       <h2 class="text-2xl md:text-4xl font-bold text-[var(--color-text)] mb-3 tracking-tight">
-        any <span class="opacity-70">questions?</span>
+        any <span class="text-[var(--color-text-secondary)]">questions?</span>
       </h2>
     </div>
 
     <div class="space-y-2">
       {faqs.map((faq) => (
-        <details class="group glass overflow-hidden transition-all duration-200 open:opacity-100">
+        <details class="group glass overflow-hidden transition-all duration-200">
           <summary class="flex items-center justify-between px-5 py-3.5 cursor-pointer list-none text-sm text-[var(--color-text)] hover:opacity-70 transition-opacity duration-200">
             {faq.q}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 transition-transform duration-200 group-open:rotate-180">
               <polyline points="6 9 12 15 18 9"/>
             </svg>
           </summary>
-          <div class="px-5 pb-4 text-sm text-[var(--color-text-muted)] leading-relaxed">
+          <div class="px-5 pb-4 text-sm text-[var(--color-text-secondary)] leading-relaxed">
             {faq.a}
           </div>
         </details>

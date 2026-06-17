@@ -9,13 +9,15 @@
   --glass-saturate: 120%;
   --glass-border: 1px solid rgba(58, 37, 41, 0.15);
   --color-text: #3A2529;
-  --color-text-muted: rgba(58, 37, 41, 0.6);
-  --color-text-dim: rgba(58, 37, 41, 0.3);
+  --color-text-secondary: #6B4A52;
+  --color-text-tertiary: #9B7A82;
   --input-bg: #FFFFFF;
   --input-border: 1px solid #3A2529;
   --radius-panel: 16px;
   --radius-button: 8px;
   --color-accent: #3A2529;
+  --btn-primary-bg: #3A2529;
+  --btn-primary-text: #FFF5F6;
 }
 
 /* ── Dark theme ── */
@@ -27,16 +29,18 @@
   --glass-saturate: 140%;
   --glass-border: 1px solid rgba(255, 240, 242, 0.2);
   --color-text: #FFF0F2;
-  --color-text-muted: rgba(255, 240, 242, 0.6);
-  --color-text-dim: rgba(255, 240, 242, 0.3);
+  --color-text-secondary: #E8C0D0;
+  --color-text-tertiary: #C8A0B0;
   --input-bg: #0F0A10;
   --input-border: 1px solid #FFF0F2;
   --radius-panel: 16px;
   --radius-button: 8px;
   --color-accent: #FFF0F2;
+  --btn-primary-bg: #FFF0F2;
+  --btn-primary-text: #0F0A10;
 }
 
-/* ── Base ── */
+/* ── Background layer (enables backdrop-filter) ── */
 html {
   scroll-behavior: smooth;
 }
@@ -45,19 +49,26 @@ body {
   font-family: "BIZ UDGothic", "Noto Sans JP", sans-serif;
   color: var(--color-text);
   overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
   background-image: var(--bg-image);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  min-height: 100vh;
 }
 
 /* ── Global lowercase ── */
 h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
   text-transform: lowercase;
 }
-a, button { text-transform: lowercase; }
 
 /* ── Glassmorphism ── */
 .glass {
@@ -74,6 +85,37 @@ a, button { text-transform: lowercase; }
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
   border: var(--glass-border) !important;
   border-radius: var(--radius-panel) !important;
+}
+
+/* ── Primary button (auto-contrast for both themes) ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-button);
+  background: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-text) !important;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  border: none;
+}
+.btn-primary:hover {
+  opacity: 0.8;
+}
+
+/* ── Card glow on hover ── */
+.card-glow {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card-glow:hover {
+  box-shadow: 0 0 30px rgba(255, 245, 246, 0.2), 0 0 60px rgba(255, 245, 246, 0.05);
+}
+[data-theme="dark"] .card-glow:hover {
+  box-shadow: 0 0 30px rgba(255, 240, 242, 0.15), 0 0 60px rgba(255, 240, 242, 0.03);
 }
 
 /* ── Sakura petal animation ── */
@@ -104,11 +146,11 @@ a, button { text-transform: lowercase; }
   position: fixed;
   width: 16px;
   height: 16px;
-  background: radial-gradient(ellipse at 30% 30%, var(--color-text), var(--color-text-muted));
+  background: radial-gradient(ellipse at 30% 30%, var(--color-text), var(--color-text-secondary));
   border-radius: 50% 0 50% 0;
   opacity: 0;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   animation: sakura-fall linear infinite, sakura-sway ease-in-out infinite;
 }
 

@@ -1,31 +1,29 @@
 ﻿<section id="demo" class="relative py-24 md:py-32 px-4">
   <div class="max-w-6xl mx-auto">
     <div class="glass p-6 md:p-8 text-center mb-16 max-w-2xl mx-auto">
-      <p class="text-xs text-[var(--color-text)] opacity-70 mb-2">demo</p>
+      <p class="text-xs text-[var(--color-text-secondary)] mb-2">demo</p>
       <h2 class="text-2xl md:text-4xl font-bold text-[var(--color-text)] mb-3 tracking-tight">
-        see it in <span class="opacity-70">action</span>
+        see it in <span class="text-[var(--color-text-secondary)]">action</span>
       </h2>
-      <p class="text-sm text-[var(--color-text-muted)] max-w-md mx-auto">
+      <p class="text-sm text-[var(--color-text-secondary)] max-w-md mx-auto">
         clean, intuitive interface designed for productivity.
       </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
       <!-- Main window mockup -->
-      <div class="md:col-span-2 glass p-4 md:p-6 overflow-hidden">
+      <div class="md:col-span-2 glass p-4 md:p-6 overflow-hidden card-glow" data-tilt data-tilt-max="2" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.05">
         <div class="relative aspect-video rounded-[var(--radius-panel)] overflow-hidden border border-[var(--color-text)]">
-          <!-- Window chrome -->
           <div class="flex items-center gap-1.5 px-4 py-2 border-b border-[var(--color-text)]">
             <div class="w-2.5 h-2.5 rounded-full border border-[var(--color-text)] opacity-40" />
             <div class="w-2.5 h-2.5 rounded-full border border-[var(--color-text)] opacity-30" />
             <div class="w-2.5 h-2.5 rounded-full border border-[var(--color-text)] opacity-20" />
-            <div class="ml-3 text-[10px] text-[var(--color-text-muted)]">zen zakura マクロ</div>
+            <div class="ml-3 text-[10px] text-[var(--color-text-secondary)]">zen zakura マクロ</div>
           </div>
-          <!-- App content mockup -->
           <div class="p-5 md:p-8">
             <div class="flex gap-5">
               <div class="hidden sm:flex flex-col gap-2.5 w-44 shrink-0">
-                <div class="h-4 w-24 rounded-[4px] bg-[var(--color-text)] opacity-20" />
+                <div class="h-4 w-24 rounded-[4px] bg-[var(--color-text)] opacity-15" />
                 <div class="h-3 w-16 rounded-[4px] bg-[var(--color-text)] opacity-10" />
                 <div class="h-3 w-20 rounded-[4px] bg-[var(--color-text)] opacity-10" />
                 <div class="h-3 w-14 rounded-[4px] bg-[var(--color-text)] opacity-10 mt-2" />
@@ -33,7 +31,7 @@
               </div>
               <div class="flex-1 space-y-2.5">
                 <div class="flex items-center gap-3 p-2.5 rounded-[var(--radius-button)] border border-[var(--color-text)]">
-                  <div class="w-8 h-8 rounded-[var(--radius-button)] border border-[var(--color-text)] flex items-center justify-center text-[10px] opacity-60">F1</div>
+                  <div class="w-8 h-8 rounded-[var(--radius-button)] border border-[var(--color-text)] flex items-center justify-center text-[10px] text-[var(--color-text)]" style="opacity:0.6">F1</div>
                   <div class="flex-1">
                     <div class="h-3 w-32 rounded-[4px] bg-[var(--color-text)] opacity-15 mb-1" />
                     <div class="h-2 w-16 rounded-[4px] bg-[var(--color-text)] opacity-8" />
@@ -41,7 +39,7 @@
                   <div class="w-4 h-4 rounded-[4px] border border-[var(--color-text)] opacity-30" />
                 </div>
                 <div class="flex items-center gap-3 p-2.5 rounded-[var(--radius-button)] border border-[var(--color-text)]">
-                  <div class="w-8 h-8 rounded-[var(--radius-button)] border border-[var(--color-text)] flex items-center justify-center text-[10px] opacity-40">F2</div>
+                  <div class="w-8 h-8 rounded-[var(--radius-button)] border border-[var(--color-text)] flex items-center justify-center text-[10px] text-[var(--color-text)]" style="opacity:0.4">F2</div>
                   <div class="flex-1">
                     <div class="h-3 w-24 rounded-[4px] bg-[var(--color-text)] opacity-12 mb-1" />
                     <div class="h-2 w-14 rounded-[4px] bg-[var(--color-text)] opacity-6" />
@@ -49,7 +47,7 @@
                   <div class="w-4 h-4 rounded-[4px] border border-[var(--color-text)] opacity-20" />
                 </div>
                 <div class="flex items-center gap-3 p-2.5 rounded-[var(--radius-button)] border border-[var(--color-text)]">
-                  <div class="w-8 h-8 rounded-[var(--radius-button)] border border-[var(--color-text)] flex items-center justify-center text-[10px] opacity-30">F3</div>
+                  <div class="w-8 h-8 rounded-[var(--radius-button)] border border-[var(--color-text)] flex items-center justify-center text-[10px] text-[var(--color-text)]" style="opacity:0.3">F3</div>
                   <div class="flex-1">
                     <div class="h-3 w-28 rounded-[4px] bg-[var(--color-text)] opacity-10 mb-1" />
                     <div class="h-2 w-10 rounded-[4px] bg-[var(--color-text)] opacity-5" />
@@ -59,41 +57,39 @@
             </div>
           </div>
           <div class="absolute top-10 right-5 glass px-3 py-1.5">
-            <div class="text-xs font-semibold">14 macros</div>
-            <div class="text-[10px] text-[var(--color-text-muted)]">everything in sync</div>
+            <div class="text-xs font-semibold text-[var(--color-text)]">14 macros</div>
+            <div class="text-[10px] text-[var(--color-text-secondary)]">everything in sync</div>
           </div>
         </div>
       </div>
 
-      <!-- Feature spotlight cards -->
-      <div class="glass p-5 md:p-6">
+      <div class="glass p-5 md:p-6 card-glow" data-tilt data-tilt-max="3" data-tilt-speed="300" data-tilt-glare="true" data-tilt-max-glare="0.05">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-9 h-9 rounded-[var(--radius-button)] border border-[var(--color-text)] flex items-center justify-center shrink-0">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
           </div>
           <div>
             <h3 class="text-base font-bold text-[var(--color-text)]">one-click playback</h3>
-            <p class="text-sm text-[var(--color-text-muted)]">assign hotkeys and launch instantly</p>
+            <p class="text-sm text-[var(--color-text-secondary)]">assign hotkeys and launch instantly</p>
           </div>
         </div>
         <div class="h-1 w-full rounded-full bg-[var(--color-text)] opacity-10 overflow-hidden">
           <div class="h-full w-3/4 rounded-full bg-[var(--color-text)] opacity-40" />
         </div>
-        <div class="flex justify-between mt-1 text-[10px] text-[var(--color-text-dim)]">
+        <div class="flex justify-between mt-1 text-[10px] text-[var(--color-text-tertiary)]">
           <span>0ms</span>
           <span>250ms avg</span>
         </div>
       </div>
 
-      <!-- Theme editor preview -->
-      <div class="glass p-5 md:p-6">
+      <div class="glass p-5 md:p-6 card-glow" data-tilt data-tilt-max="3" data-tilt-speed="300" data-tilt-glare="true" data-tilt-max-glare="0.05">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-9 h-9 rounded-[var(--radius-button)] border border-[var(--color-text)] flex items-center justify-center shrink-0">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.67 1.5-1.5 0-.36-.14-.67-.33-.93-.19-.26-.33-.57-.33-.93 0-.83.67-1.5 1.5-1.5H16c3.86 0 7-3.14 7-7 0-5.52-4.48-10-11-10z"/></svg>
           </div>
           <div>
             <h3 class="text-base font-bold text-[var(--color-text)]">theme editor</h3>
-            <p class="text-sm text-[var(--color-text-muted)]">customize every color</p>
+            <p class="text-sm text-[var(--color-text-secondary)]">customize every color</p>
           </div>
         </div>
         <div class="flex gap-1.5">
