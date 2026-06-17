@@ -24,6 +24,7 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
         <div class="flex gap-2 mb-4">
           <input id="search-input" type="text" placeholder="search by email or username" class="flex-1 px-3 py-2 rounded-[var(--radius-button)] bg-[var(--input-bg)] text-[var(--color-text)] text-sm border border-[var(--color-text)] focus:outline-none focus:ring-1 focus:ring-[var(--color-text)]" />
           <button id="search-btn" class="px-4 py-2 rounded-[var(--radius-button)] text-sm border border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--glass-bg)] transition-all cursor-pointer bg-transparent">search</button>
+          <button id="add-user-btn" class="btn-primary no-underline">+ add user</button>
         </div>
         <div id="users-table" class="overflow-x-auto">
           <table class="w-full text-sm">
@@ -49,6 +50,10 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
         <h3 class="text-sm font-bold text-[var(--color-text)] mb-4">edit user #<span id="edit-id"></span></h3>
         <div class="space-y-3">
           <div>
+            <label class="block text-xs text-[var(--color-text-secondary)] mb-1">email</label>
+            <input id="edit-email" type="email" class="w-full px-3 py-2 rounded-[var(--radius-button)] bg-[var(--input-bg)] text-[var(--color-text)] text-sm border border-[var(--color-text)]" />
+          </div>
+          <div>
             <label class="block text-xs text-[var(--color-text-secondary)] mb-1">subscription status</label>
             <select id="edit-status" class="w-full px-3 py-2 rounded-[var(--radius-button)] bg-[var(--input-bg)] text-[var(--color-text)] text-sm border border-[var(--color-text)]">
               <option value="free">free</option>
@@ -63,6 +68,7 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
           </div>
           <div class="flex gap-2">
             <button id="edit-save" class="btn-primary flex-1 justify-center">save</button>
+            <button id="edit-delete" class="px-4 py-2 rounded-[var(--radius-button)] text-sm border border-red-500 text-red-500 hover:bg-red-500/10 transition-all cursor-pointer bg-transparent">delete</button>
             <button id="edit-cancel" class="px-4 py-2 rounded-[var(--radius-button)] text-sm border border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--glass-bg)] transition-all cursor-pointer bg-transparent">cancel</button>
           </div>
           <p id="edit-error" class="text-xs text-[var(--color-text)] hidden"></p>
@@ -82,8 +88,12 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
     if (!token) { window.location.href = "/account"; }
 
     var currentPage = 1, currentSearch = "";
+    var editMode = "edit"; // "edit" or "add"
+    var editUserId = null;
 
     function showError() { document.getElementById("admin-loading").classList.add("hidden"); document.getElementById("admin-content").classList.add("hidden"); document.getElementById("admin-error").classList.remove("hidden"); }
+
+    function escapeHtml(s) { if (!s) return ""; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
     function loadUsers(page, search) {
       var url = API_BASE + "/admin/users?page=" + (page || 1);
@@ -93,14 +103,8 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
         var empty = document.getElementById("users-empty");
         var pagination = document.getElementById("users-pagination");
         tbody.innerHTML = "";
-
-        if (!data.users || data.users.length === 0) {
-          empty.classList.remove("hidden");
-          pagination.innerHTML = "";
-          return;
-        }
+        if (!data.users || data.users.length === 0) { empty.classList.remove("hidden"); pagination.innerHTML = ""; return; }
         empty.classList.add("hidden");
-
         data.users.forEach(function(u) {
           var tr = document.createElement("tr");
           tr.className = "border-b border-[var(--color-text)] border-opacity-10";
@@ -110,10 +114,9 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
             '<td class="py-2 pr-2 text-[var(--color-text-secondary)]">' + (u.username ? '@' + escapeHtml(u.username) : '—') + '</td>' +
             '<td class="py-2 pr-2"><span class="px-2 py-0.5 rounded-full text-[10px] border border-[var(--color-text)] text-[var(--color-text)]">' + u.sub_status + '</span></td>' +
             '<td class="py-2 pr-2 text-[var(--color-text-secondary)] text-xs">' + expires + '</td>' +
-            '<td class="py-2"><button class="text-xs text-[var(--color-text)] hover:opacity-70 cursor-pointer bg-transparent border-none" onclick="editUser(' + u.id + ',\'' + u.sub_status + '\',\'' + (u.sub_expires || '') + '\')">edit</button></td>';
+            '<td class="py-2"><button class="edit-btn text-xs text-[var(--color-text)] hover:opacity-70 cursor-pointer bg-transparent border-none" data-id="' + u.id + '" data-email="' + escapeHtml(u.email) + '" data-status="' + u.sub_status + '" data-expires="' + (u.sub_expires || '') + '">edit / delete</button></td>';
           tbody.appendChild(tr);
         });
-
         var totalPages = Math.ceil(data.total / data.limit);
         pagination.innerHTML = "";
         for (var i = 1; i <= totalPages && i <= 10; i++) {
@@ -126,37 +129,96 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
       }).catch(function() {});
     }
 
-    function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-    var editUserId = null;
-    function editUser(id, status, expires) {
+    // Event delegation for edit/delete buttons (works with dynamically created rows)
+    document.getElementById("users-body").addEventListener("click", function(e) {
+      var btn = e.target.closest(".edit-btn");
+      if (!btn) return;
+      var id = parseInt(btn.getAttribute("data-id"));
+      var email = btn.getAttribute("data-email");
+      var status = btn.getAttribute("data-status");
+      var expires = btn.getAttribute("data-expires");
+      editMode = "edit";
       editUserId = id;
       document.getElementById("edit-id").textContent = id;
-      document.getElementById("edit-status").value = status;
+      document.getElementById("edit-email").value = email;
+      document.getElementById("edit-email").disabled = true;
+      document.getElementById("edit-status").value = status === "pro" || status === "active" ? "active" : status;
       document.getElementById("edit-expires").value = expires ? expires.slice(0,10) : "";
+      document.getElementById("edit-delete").classList.remove("hidden");
       document.getElementById("edit-modal").classList.remove("hidden");
       document.getElementById("edit-error").classList.add("hidden");
-    }
+    });
+
+    document.getElementById("add-user-btn").addEventListener("click", function() {
+      editMode = "add";
+      editUserId = null;
+      document.getElementById("edit-id").textContent = "new";
+      document.getElementById("edit-email").value = "";
+      document.getElementById("edit-email").disabled = false;
+      document.getElementById("edit-status").value = "free";
+      document.getElementById("edit-expires").value = "";
+      document.getElementById("edit-delete").classList.add("hidden");
+      document.getElementById("edit-modal").classList.remove("hidden");
+      document.getElementById("edit-error").classList.add("hidden");
+    });
 
     document.getElementById("edit-cancel").addEventListener("click", function() {
       document.getElementById("edit-modal").classList.add("hidden");
     });
 
     document.getElementById("edit-save").addEventListener("click", function() {
+      var email = document.getElementById("edit-email").value.trim();
       var status = document.getElementById("edit-status").value;
       var expires = document.getElementById("edit-expires").value;
       var body = JSON.stringify({ sub_status: status, sub_expires: expires || null });
+
+      if (editMode === "add") {
+        if (!email) { document.getElementById("edit-error").textContent = "email required"; document.getElementById("edit-error").classList.remove("hidden"); return; }
+        // Register user
+        fetch(API_BASE + "/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email, password: "changeme123" }),
+        }).then(function(r) { return r.json(); }).then(function(data) {
+          if (data.token) {
+            // Now update status
+            var uid = editUserId || data.sub;
+            fetch(API_BASE + "/admin/users/" + uid + "/update", {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
+              body: body,
+            }).then(function(r) {
+              if (r.ok) {
+                document.getElementById("edit-modal").classList.add("hidden");
+                loadUsers(currentPage, currentSearch);
+              } else { r.json().then(function(d) { document.getElementById("edit-error").textContent = d.error || "error"; document.getElementById("edit-error").classList.remove("hidden"); }); }
+            }).catch(function() {});
+          } else {
+            document.getElementById("edit-error").textContent = data.error || "registration failed";
+            document.getElementById("edit-error").classList.remove("hidden");
+          }
+        }).catch(function() {});
+        return;
+      }
+
       fetch(API_BASE + "/admin/users/" + editUserId + "/update", {
         method: "PATCH",
         headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
         body: body,
       }).then(function(r) {
-        if (r.ok) {
-          document.getElementById("edit-modal").classList.add("hidden");
-          loadUsers(currentPage, currentSearch);
-        } else {
-          return r.json().then(function(d) { document.getElementById("edit-error").textContent = d.error || "error"; document.getElementById("edit-error").classList.remove("hidden"); });
-        }
+        if (r.ok) { document.getElementById("edit-modal").classList.add("hidden"); loadUsers(currentPage, currentSearch); }
+        else { r.json().then(function(d) { document.getElementById("edit-error").textContent = d.error || "error"; document.getElementById("edit-error").classList.remove("hidden"); }); }
+      }).catch(function() {});
+    });
+
+    document.getElementById("edit-delete").addEventListener("click", function() {
+      if (!confirm("Delete user #" + editUserId + "? This cannot be undone.")) return;
+      fetch(API_BASE + "/admin/users/" + editUserId + "/delete", {
+        method: "DELETE",
+        headers: { Authorization: "Bearer " + token },
+      }).then(function(r) {
+        if (r.ok) { document.getElementById("edit-modal").classList.add("hidden"); loadUsers(currentPage, currentSearch); }
+        else { r.json().then(function(d) { document.getElementById("edit-error").textContent = d.error || "error"; document.getElementById("edit-error").classList.remove("hidden"); }); }
       }).catch(function() {});
     });
 
@@ -165,7 +227,6 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
       currentPage = 1;
       loadUsers(currentPage, currentSearch);
     });
-
     document.getElementById("search-input").addEventListener("keydown", function(e) {
       if (e.key === "Enter") document.getElementById("search-btn").click();
     });
