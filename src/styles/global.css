@@ -19,8 +19,8 @@
   --btn-primary-bg: #3A2529;
   --btn-primary-text: #FFF5F6;
   --bg-overlay: radial-gradient(ellipse at center, transparent 35%, rgba(139, 94, 102, 0.12) 70%, rgba(139, 94, 102, 0.25) 100%);
-  --petal-color-1: #FBCFE8;
-  --petal-color-2: #F9A8D4;
+  --petal-color-1: #D2A0A6;
+  --petal-color-2: #D2A0A6;
 }
 
 /* ── Dark theme ── */
@@ -42,8 +42,8 @@
   --btn-primary-bg: #FFF0F2;
   --btn-primary-text: #0F0A10;
   --bg-overlay: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.25) 70%, rgba(0, 0, 0, 0.45) 100%);
-  --petal-color-1: #EC4899;
-  --petal-color-2: #DB2777;
+  --petal-color-1: #E2ABAB;
+  --petal-color-2: #E2ABAB;
 }
 
 /* ── Lenis scroll + navbar offset ── */
