@@ -1,0 +1,82 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/Navbar.astro";
+import SakuraPetals from "@/components/SakuraPetals.astro";
+---
+
+<BaseLayout title="admin — zen zakura マクロ">
+  <SakuraPetals />
+  <Navbar />
+  <main class="min-h-screen px-4 py-32 max-w-6xl mx-auto" id="admin-app">
+    <div id="admin-loading" class="glass p-10 text-center">
+      <div class="animate-spin w-5 h-5 border border-[var(--color-text)] border-t-transparent rounded-full mx-auto mb-3" />
+      <p class="text-sm text-[var(--color-text-secondary)]">loading...</p>
+    </div>
+    <div id="admin-content" class="hidden">
+      <div class="glass p-6 md:p-8 mb-6 text-center">
+        <h1 class="text-xl md:text-2xl font-bold text-[var(--color-text)] mb-1">admin panel</h1>
+        <p class="text-sm text-[var(--color-text-secondary)]">welcome, <span id="admin-email"></span></p>
+      </div>
+      <nav class="flex gap-2 mb-6">
+        <a href="/admin" class="px-4 py-2 rounded-[var(--radius-button)] text-sm font-medium border border-[var(--color-text)] text-[var(--color-text)] no-underline bg-[var(--color-text)] text-white">dashboard</a>
+        <a href="/admin/users" class="px-4 py-2 rounded-[var(--radius-button)] text-sm font-medium border border-[var(--color-text)] text-[var(--color-text)] no-underline hover:bg-[var(--glass-bg)] transition-all">users</a>
+      </nav>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6" id="stats-grid">
+        <div class="glass p-4 text-center card-glow"><p class="text-2xl font-bold text-[var(--color-text)]" id="stat-total">—</p><p class="text-xs text-[var(--color-text-secondary)] mt-1">total</p></div>
+        <div class="glass p-4 text-center card-glow"><p class="text-2xl font-bold text-[var(--color-text)]" id="stat-pro">—</p><p class="text-xs text-[var(--color-text-secondary)] mt-1">pro</p></div>
+        <div class="glass p-4 text-center card-glow"><p class="text-2xl font-bold text-[var(--color-text)]" id="stat-free">—</p><p class="text-xs text-[var(--color-text-secondary)] mt-1">free</p></div>
+        <div class="glass p-4 text-center card-glow"><p class="text-2xl font-bold text-[var(--color-text)]" id="stat-dev">—</p><p class="text-xs text-[var(--color-text-secondary)] mt-1">dev</p></div>
+      </div>
+      <div class="glass p-6 card-glow mb-6">
+        <p class="text-sm font-bold text-[var(--color-text)] mb-3">cloudflare status</p>
+        <div class="space-y-2 text-sm text-[var(--color-text-secondary)]">
+          <div class="flex justify-between"><span>r2 objects</span><span id="r2-objects" class="text-[var(--color-text)]">—</span></div>
+          <div class="flex justify-between"><span>r2 size</span><span id="r2-size" class="text-[var(--color-text)]">—</span></div>
+        </div>
+      </div>
+      <div id="admin-error" class="glass p-6 text-center hidden">
+        <p class="text-sm text-[var(--color-text)]">access denied</p>
+        <p class="text-xs text-[var(--color-text-secondary)] mt-2">you don't have permission to view this page</p>
+        <a href="/account" class="inline-block mt-4 text-xs text-[var(--color-text)] underline">back to account</a>
+      </div>
+    </div>
+  </main>
+  <script>
+    var API_BASE = "https://zen-zakura-api.zen-zakura.workers.dev";
+    var token = localStorage.getItem("zz_token");
+
+    if (!token) { window.location.href = "/account"; }
+
+    function showError() {
+      document.getElementById("admin-loading").classList.add("hidden");
+      document.getElementById("admin-content").classList.add("hidden");
+      document.getElementById("admin-error").classList.remove("hidden");
+    }
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + " B";
+      if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
+      return (bytes / 1048576).toFixed(1) + " MB";
+    }
+
+    fetch(API_BASE + "/verify", {
+      headers: { Authorization: "Bearer " + token },
+    }).then(function(r) { return r.json(); }).then(function(data) {
+      if (data.sub_status !== "dev") { showError(); return; }
+      document.getElementById("admin-email").textContent = data.email;
+      document.getElementById("admin-loading").classList.add("hidden");
+      document.getElementById("admin-content").classList.remove("hidden");
+
+      fetch(API_BASE + "/admin/stats", {
+        headers: { Authorization: "Bearer " + token },
+      }).then(function(r) { return r.json(); }).then(function(stats) {
+        document.getElementById("stat-total").textContent = stats.total || 0;
+        document.getElementById("stat-pro").textContent = stats.pro || 0;
+        document.getElementById("stat-free").textContent = stats.free || 0;
+        document.getElementById("stat-dev").textContent = stats.dev || 0;
+        document.getElementById("r2-objects").textContent = stats.r2Objects || 0;
+        document.getElementById("r2-size").textContent = formatSize(stats.r2Size || 0);
+      }).catch(function() {});
+    }).catch(function() { showError(); });
+  </script>
+</BaseLayout>
