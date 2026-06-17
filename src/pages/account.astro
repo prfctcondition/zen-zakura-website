@@ -240,7 +240,7 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
 
       // Avatar
       if (data.avatar_key) {
-        avatarImg.src = API_BASE + "/avatar/get?email=" + encodeURIComponent(data.email);
+        avatarImg.src = API_BASE + "/avatar/get?email=" + encodeURIComponent(data.email) + "&t=" + Date.now();
         avatarImg.classList.remove("hidden");
         avatarFallback.classList.add("hidden");
       }
@@ -266,7 +266,8 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
         body: formData,
       }).then(function(res) {
         if (res.ok) {
-          avatarImg.src = URL.createObjectURL(file);
+          var email = document.getElementById("dashboard-email").textContent;
+          avatarImg.src = API_BASE + "/avatar/get?email=" + encodeURIComponent(email) + "&t=" + Date.now();
           avatarImg.classList.remove("hidden");
           avatarFallback.classList.add("hidden");
         }
