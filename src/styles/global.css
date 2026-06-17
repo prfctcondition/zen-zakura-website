@@ -178,14 +178,12 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
 
 .petal {
   position: fixed;
-  width: 16px;
-  height: 16px;
-  background: radial-gradient(ellipse at 30% 30%, var(--petal-color-1), var(--petal-color-2));
-  border-radius: 50% 0 50% 0;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
+  overflow: visible;
   opacity: 0;
   pointer-events: none;
   z-index: -1;
+  fill: var(--petal-color-1);
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.25));
   animation: sakura-fall linear infinite, sakura-sway ease-in-out infinite, sakura-rotate linear infinite;
 }
 

@@ -12,8 +12,9 @@ const petals = Array.from({ length: 25 }, () => ({
 ---
 
 {petals.map((p) => (
-  <div
+  <svg
     class="petal"
+    viewBox="0 0 30 40"
     style={`
       left: ${p.left};
       width: ${p.size};
@@ -21,5 +22,7 @@ const petals = Array.from({ length: 25 }, () => ({
       animation-duration: ${p.duration}, ${p.swayDuration}, ${p.rotateDuration};
       animation-delay: ${p.fallDelay}, ${p.swayDelay}, ${p.rotateDelay};
     `}
-  />
+  >
+    <path d="M15 2 C22 8 28 18 26 26 C24 34 18 38 15 38 C12 38 6 34 4 26 C2 18 8 8 15 2Z" />
+  </svg>
 ))}
