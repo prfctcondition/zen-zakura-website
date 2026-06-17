@@ -1,0 +1,42 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/Navbar.astro";
+import SakuraPetals from "@/components/SakuraPetals.astro";
+---
+
+<BaseLayout title="terms & conditions — zen zakura マクロ">
+  <SakuraPetals />
+  <Navbar />
+  <main class="min-h-screen px-4 py-32 max-w-3xl mx-auto">
+    <div class="glass p-8 md:p-10">
+      <h1 class="text-xl md:text-2xl font-bold text-[var(--color-text)] mb-6">terms & conditions</h1>
+      <div class="text-sm text-[var(--color-text-secondary)] space-y-4 leading-relaxed">
+        <p>last updated: june 2026</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">1. acceptance of terms</h2>
+        <p>by downloading, installing, or using zen zakura macro ("the software"), you agree to be bound by these terms. if you do not agree, do not use the software.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">2. license</h2>
+        <p>we grant you a non-exclusive, non-transferable, revocable license to use the software for personal or business purposes, subject to your subscription tier.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">3. subscriptions & payments</h2>
+        <p>pro subscriptions are billed monthly via paddle. you may cancel at any time through your account dashboard or by contacting paddle support. cancellations take effect at the end of the current billing period. no refunds are provided for partial months.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">4. acceptable use</h2>
+        <p>you agree not to use the software for any illegal activity, to distribute malware, to cheat in online games where prohibited, or to violate any applicable laws.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">5. intellectual property</h2>
+        <p>all rights, title, and interest in the software remain with zen zakura. you may not reverse engineer, decompile, or disassemble the software except as permitted by law.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">6. disclaimer</h2>
+        <p>the software is provided "as is" without warranty of any kind. we are not liable for any damages arising from the use of the software.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">7. changes</h2>
+        <p>we may update these terms at any time. continued use after changes constitutes acceptance of the new terms.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">8. contact</h2>
+        <p>for questions, contact us through our <a href="/account" class="text-[var(--color-text)] underline">account page</a>.</p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

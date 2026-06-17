@@ -1,0 +1,39 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/Navbar.astro";
+import SakuraPetals from "@/components/SakuraPetals.astro";
+---
+
+<BaseLayout title="refund policy — zen zakura マクロ">
+  <SakuraPetals />
+  <Navbar />
+  <main class="min-h-screen px-4 py-32 max-w-3xl mx-auto">
+    <div class="glass p-8 md:p-10">
+      <h1 class="text-xl md:text-2xl font-bold text-[var(--color-text)] mb-6">refund policy</h1>
+      <div class="text-sm text-[var(--color-text-secondary)] space-y-4 leading-relaxed">
+        <p>last updated: june 2026</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">1. subscription refunds</h2>
+        <p>all payments for pro subscriptions are processed securely by <strong>paddle</strong>. if you are not satisfied, you may request a refund within <strong>14 days</strong> of purchase. after 14 days, refunds are provided at our discretion.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">2. how to request a refund</h2>
+        <p>contact paddle support directly through their help center, or reach out to us through our <a href="/account" class="text-[var(--color-text)] underline">account page</a> and we will process the refund on your behalf.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">3. partial refunds</h2>
+        <p>partial refunds may be granted for unused portions of annual subscriptions, calculated on a pro-rata basis.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">4. cancellations</h2>
+        <p>you may cancel your subscription at any time through your account dashboard or paddle's customer portal. cancellation stops future billing; you retain access until the end of the current billing period.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">5. free tier</h2>
+        <p>the free tier has no associated costs and requires no refunds. you may use it indefinitely without charge.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">6. chargebacks</h2>
+        <p>if you file a chargeback, your account may be suspended until the dispute is resolved.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">7. contact</h2>
+        <p>for refund requests, visit our <a href="/account" class="text-[var(--color-text)] underline">account page</a> or contact paddle support.</p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

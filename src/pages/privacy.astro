@@ -1,0 +1,43 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/Navbar.astro";
+import SakuraPetals from "@/components/SakuraPetals.astro";
+---
+
+<BaseLayout title="privacy policy — zen zakura マクロ">
+  <SakuraPetals />
+  <Navbar />
+  <main class="min-h-screen px-4 py-32 max-w-3xl mx-auto">
+    <div class="glass p-8 md:p-10">
+      <h1 class="text-xl md:text-2xl font-bold text-[var(--color-text)] mb-6">privacy policy</h1>
+      <div class="text-sm text-[var(--color-text-secondary)] space-y-4 leading-relaxed">
+        <p>last updated: june 2026</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">1. information we collect</h2>
+        <p><strong>account data:</strong> email address and hashed password when you register. payment information is handled entirely by paddle — we never see your full card details.</p>
+        <p><strong>usage data:</strong> anonymous usage statistics to improve the software (macro count, feature usage). no keystroke content is ever collected or transmitted.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">2. how we use your data</h2>
+        <p>to provide and maintain your account, process subscription payments via paddle, send essential service updates, and improve the software.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">3. data sharing</h2>
+        <p>we do not sell your personal data. we share only necessary data with paddle (email, customer id) for payment processing. we may disclose data if required by law.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">4. data storage & security</h2>
+        <p>your data is stored on cloudflare's infrastructure (d1 database). passwords are hashed using pbkdf2 with 100,000 iterations. communications are encrypted via https.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">5. your rights</h2>
+        <p>you may request deletion of your account and associated data at any time by contacting us. you may export your data through your account dashboard.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">6. cookies</h2>
+        <p>we use a localStorage token for session management. no third-party cookies are used.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">7. changes</h2>
+        <p>we may update this policy. we will notify registered users of material changes via email.</p>
+
+        <h2 class="text-base font-bold text-[var(--color-text)] mt-6 mb-2">8. contact</h2>
+        <p>reach us through our <a href="/account" class="text-[var(--color-text)] underline">account page</a>.</p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
