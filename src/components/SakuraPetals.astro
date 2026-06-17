@@ -1,11 +1,11 @@
 ﻿---
-const petals = Array.from({ length: 25 }, () => ({
+const petals = Array.from({ length: 30 }, () => ({
   left: `${Math.random() * 100}%`,
   size: `${14 + Math.random() * 16}px`,
   duration: `${12 + Math.random() * 14}s`,
   fallDelay: `-${Math.random() * 24}s`,
-  swayDuration: `${3 + Math.random() * 4}s`,
-  swayDelay: `-${Math.random() * 5}s`,
+  windDuration: `${8 + Math.random() * 10}s`,
+  windDelay: `-${Math.random() * 15}s`,
   rotateDuration: `${6 + Math.random() * 8}s`,
   rotateDelay: `-${Math.random() * 10}s`,
 }));
@@ -18,8 +18,8 @@ const petals = Array.from({ length: 25 }, () => ({
       left: ${p.left};
       width: ${p.size};
       height: ${p.size};
-      animation-duration: ${p.duration}, ${p.swayDuration}, ${p.rotateDuration};
-      animation-delay: ${p.fallDelay}, ${p.swayDelay}, ${p.rotateDelay};
+      animation-duration: ${p.duration}, ${p.windDuration}, ${p.rotateDuration};
+      animation-delay: ${p.fallDelay}, ${p.windDelay}, ${p.rotateDelay};
     `}
   />
 ))}

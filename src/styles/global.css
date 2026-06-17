@@ -165,10 +165,12 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
   100% { top: 112vh; opacity: 0; }
 }
 
-@keyframes sakura-sway {
-  0%, 100% { margin-left: 0; }
-  25% { margin-left: 40px; }
-  75% { margin-left: -40px; }
+@keyframes sakura-wind {
+  0%   { translate: 0; }
+  20%  { translate: 15vw; }
+  50%  { translate: 40vw; }
+  80%  { translate: 65vw; }
+  100% { translate: 85vw; }
 }
 
 @keyframes sakura-rotate {
@@ -191,7 +193,7 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   filter: drop-shadow(0 1px 3px rgba(0,0,0,0.2));
-  animation: sakura-fall linear infinite, sakura-sway ease-in-out infinite, sakura-rotate linear infinite;
+  animation: sakura-fall linear infinite, sakura-wind linear infinite, sakura-rotate linear infinite;
 }
 
 /* ── Theme toggle icon animation ── */
