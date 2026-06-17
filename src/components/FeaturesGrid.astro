@@ -1,95 +1,90 @@
 ﻿---
 const features = [
   {
-    title: "Macro Recording",
-    desc: "Record keyboard and mouse actions with precision. Replay with a single hotkey.",
+    title: "macro recording",
+    desc: "record keyboard and mouse actions with precision. replay with a single hotkey.",
     icon: "record",
     span: "md:col-span-2 md:row-span-1",
   },
   {
-    title: "Snippet Manager",
-    desc: "Store and insert text snippets instantly. Perfect for repetitive typing tasks.",
+    title: "snippet manager",
+    desc: "store and insert text snippets instantly. perfect for repetitive typing tasks.",
     icon: "snippet",
     span: "md:col-span-1 md:row-span-1",
   },
   {
-    title: "Theme Editor",
-    desc: "Customize every color with the built-in theme editor. Create your perfect workspace.",
+    title: "theme editor",
+    desc: "customize every color with the built-in theme editor. create your perfect workspace.",
     icon: "palette",
     span: "md:col-span-1 md:row-span-2",
   },
   {
-    title: "Smart Hotkeys",
-    desc: "Bind any action to any key combination. Support for modifiers, mice, and more.",
+    title: "smart hotkeys",
+    desc: "bind any action to any key combination. support for modifiers, mice, and more.",
     icon: "keyboard",
     span: "md:col-span-1 md:row-span-1",
   },
   {
-    title: "Lightning Fast",
-    desc: "C++ core engine ensures sub-millisecond playback. No delays, no overhead.",
+    title: "lightning fast",
+    desc: "c++ core engine ensures sub-millisecond playback. no delays, no overhead.",
     icon: "zap",
     span: "md:col-span-1 md:row-span-1",
   },
   {
-    title: "Cloud Sync",
-    desc: "Your macros, snippets and themes synced across devices. Pro feature.",
+    title: "cloud sync",
+    desc: "your macros, snippets and themes synced across devices. pro feature.",
     icon: "cloud",
-    span: "md:col-span-1 md:row-span-1",
     pro: true,
+    span: "md:col-span-1 md:row-span-1",
   },
 ];
 ---
 
 <section id="features" class="relative py-24 md:py-32 px-4">
   <div class="max-w-6xl mx-auto">
-    <!-- Section header -->
     <div class="text-center mb-16">
-      <span class="inline-block text-xs font-medium text-sakura uppercase tracking-widest mb-4">Features</span>
-      <h2 class="font-serif-jp text-3xl md:text-5xl font-bold text-ink mb-4">
-        Crafted with <span class="text-sakura">precision</span>
+      <p class="text-xs text-[var(--color-text)] opacity-70 mb-3">features</p>
+      <h2 class="text-3xl md:text-5xl font-bold text-[var(--color-text)] mb-4 tracking-tight">
+        crafted with <span class="opacity-70">precision</span>
       </h2>
-      <p class="text-ink/60 max-w-xl mx-auto">
-        Every feature designed to make your workflow faster, smoother, and more elegant.
+      <p class="text-[var(--color-text-muted)] max-w-xl mx-auto text-sm">
+        every feature designed to make your workflow faster, smoother, and more elegant.
       </p>
     </div>
 
-    <!-- Bento grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[200px]">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 auto-rows-[200px]">
       {features.map((f) => (
         <div
-          class={`group relative glass rounded-2xl p-6 md:p-8 overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-sakura/5 ${f.span} ${f.pro ? "border-sakura/20" : ""}`}
+          class={`group glass p-5 md:p-6 overflow-hidden transition-all duration-300 ${f.span} ${f.pro ? "opacity-70 hover:opacity-100" : ""}`}
         >
           {f.pro && (
-            <div class="absolute top-3 right-3 flex items-center gap-1 px-2 py-0.5 rounded-full bg-gold/10 text-gold text-[10px] font-semibold tracking-wider">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              PRO
-            </div>
+            <div class="mb-3 text-[10px] tracking-wider opacity-60">pro</div>
           )}
 
-          <div class="flex items-start gap-4 h-full">
-            <div class="shrink-0 w-10 h-10 rounded-xl bg-sakura/10 flex items-center justify-center text-sakura group-hover:bg-sakura/20 transition-colors duration-300">
+          <div class="flex items-start gap-3 h-full">
+            <div class="shrink-0 w-9 h-9 rounded-[var(--radius-button)] border border-[var(--color-text)] flex items-center justify-center text-[var(--color-text)] group-hover:opacity-70 transition-opacity duration-300">
               {f.icon === "record" && (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
               )}
               {f.icon === "snippet" && (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
               )}
               {f.icon === "palette" && (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.67 1.5-1.5 0-.36-.14-.67-.33-.93-.19-.26-.33-.57-.33-.93 0-.83.67-1.5 1.5-1.5H16c3.86 0 7-3.14 7-7 0-5.52-4.48-10-11-10z"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.67 1.5-1.5 0-.36-.14-.67-.33-.93-.19-.26-.33-.57-.33-.93 0-.83.67-1.5 1.5-1.5H16c3.86 0 7-3.14 7-7 0-5.52-4.48-10-11-10z"/></svg>
               )}
               {f.icon === "keyboard" && (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M6 16h.01M18 16h.01"/><path d="M10 16h4"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M6 16h.01M18 16h.01"/><path d="M10 16h4"/></svg>
               )}
               {f.icon === "zap" && (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
               )}
               {f.icon === "cloud" && (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
               )}
             </div>
             <div>
-              <h3 class="font-serif-jp text-lg font-semibold text-ink mb-1.5">{f.title}</h3>
-              <p class="text-sm text-ink/60 leading-relaxed">{f.desc}</p>
+              <h3 class="text-base font-bold text-[var(--color-text)] mb-1">{f.title}</h3>
+              <p class="text-sm text-[var(--color-text-muted)] leading-relaxed">{f.desc}</p>
             </div>
           </div>
         </div>
