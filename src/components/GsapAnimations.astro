@@ -57,17 +57,22 @@ function initAnimations() {
   }
 
   // ── Lenis smooth scroll ──
-  var lenis = null;
-  if (!prefersReduced) {
-    lenis = new Lenis({
-      duration: 1.2,
-      easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)) },
-      smoothWheel: true,
-    });
-    lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
-    gsap.ticker.lagSmoothing(0);
+  var lenis = new Lenis({
+    duration: 1.2,
+    easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)) },
+    orientation: "vertical",
+    gestureOrientation: "vertical",
+    smoothWheel: true,
+  });
+  window.lenis = lenis;
+
+  lenis.on("scroll", ScrollTrigger.update);
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
   }
+  requestAnimationFrame(raf);
 
   // ── Smooth scroll for anchor links via Lenis ──
   document.querySelectorAll('a[href^="#"]').forEach(function(link) {
@@ -75,13 +80,14 @@ function initAnimations() {
       var targetId = this.getAttribute("href");
       if (targetId === "#") return;
       var target = document.querySelector(targetId);
-      if (target && lenis) {
+      if (target && window.lenis) {
         e.preventDefault();
-        lenis.scrollTo(target, { offset: -80 });
+        window.lenis.scrollTo(target, { offset: 0 });
       }
     });
   });
 
+  // ── Refresh ScrollTrigger after everything is set up ──
   requestAnimationFrame(function() { ScrollTrigger.refresh(); });
 }
 

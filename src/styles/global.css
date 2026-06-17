@@ -42,10 +42,32 @@
   --bg-overlay: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.25) 70%, rgba(0, 0, 0, 0.45) 100%);
 }
 
-/* ── Background layer (enables backdrop-filter) ── */
+/* ── Lenis scroll + navbar offset ── */
 html {
-  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ── Background layer (enables backdrop-filter) ── */
 
 body {
   font-family: "BIZ UDGothic", "Noto Sans JP", sans-serif;
