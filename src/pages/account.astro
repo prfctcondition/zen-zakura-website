@@ -99,6 +99,7 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
         <div class="glass p-6 card-glow space-y-3 mb-4" data-tilt data-tilt-max="1.3" data-tilt-speed="270" data-tilt-glare="true" data-tilt-max-glare="0.03">
           <a href="#" id="upgrade-btn" class="btn-primary w-full justify-center no-underline">upgrade to pro</a>
           <a href="#" id="manage-billing-btn" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-[var(--radius-button)] border border-[var(--color-text)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--glass-bg)] transition-all duration-200 no-underline cursor-pointer">manage billing</a>
+          <a href="/admin" id="admin-btn" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-[var(--radius-button)] bg-[var(--color-text)] text-white text-sm font-medium hover:opacity-80 transition-all duration-200 no-underline cursor-pointer hidden">admin panel</a>
         </div>
 
         <!-- Password change card -->
@@ -212,14 +213,22 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
         dashboardUsername.classList.add("hidden");
       }
 
-      var isPro = data.sub_status === "pro" || data.sub_status === "active";
+      var isDev = data.sub_status === "dev";
+      var isPro = isDev || data.sub_status === "pro" || data.sub_status === "active";
 
-      if (isPro) {
+      if (isDev) {
+        tierBadge.textContent = "dev";
+        upgradeBtn.classList.add("hidden");
+        document.getElementById("admin-btn").classList.remove("hidden");
+        document.getElementById("manage-billing-btn").classList.add("hidden");
+      } else if (isPro) {
         tierBadge.textContent = "pro";
         upgradeBtn.classList.add("hidden");
+        document.getElementById("admin-btn").classList.add("hidden");
       } else {
         tierBadge.textContent = data.sub_status === "expired" ? "expired" : "free";
         upgradeBtn.classList.remove("hidden");
+        document.getElementById("admin-btn").classList.add("hidden");
       }
 
       if (data.sub_expires) {
