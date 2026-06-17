@@ -188,15 +188,10 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
   opacity: 0;
   pointer-events: none;
   z-index: -1;
-  background-color: var(--petal-color-1);
-  mask-image: url('/petal.webp');
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  -webkit-mask-image: url('/petal.webp');
-  -webkit-mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
+  background-image: url('/petal.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
   animation: sakura-fall linear infinite, sakura-wind linear infinite, sakura-rotate linear infinite, sakura-fade linear infinite;
 }
