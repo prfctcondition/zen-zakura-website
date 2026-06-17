@@ -1,8 +1,4 @@
-﻿---
-// GSAP scroll animations + Lenis + Splitting text reveal
----
-
-<script>
+﻿<script>
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -11,110 +7,85 @@ import VanillaTilt from "vanilla-tilt";
 gsap.registerPlugin(ScrollTrigger);
 
 function initAnimations() {
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // ── Lenis smooth scroll ──
-  if (!prefersReduced) {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)) },
-      orientation: 'vertical',
-      smoothWheel: true,
-    });
-
-    lenis.on('scroll', ScrollTrigger.update);
-
-    gsap.ticker.add(function(time) {
-      lenis.raf(time * 1000);
-    });
-
-    gsap.ticker.lagSmoothing(0);
+  // ── Prevent scroll restoration on reload ──
+  if (history.scrollRestoration) {
+    history.scrollRestoration = "manual";
   }
+  window.scrollTo(0, 0);
 
-  // ── Feature cards stagger ──
-  gsap.from("#features .group", {
-    y: 30,
-    opacity: 0,
-    duration: 0.6,
-    stagger: 0.08,
+  // ── General animation config ──
+  var defaults = {
     ease: "power3.out",
-    scrollTrigger: {
-      trigger: "#features .grid",
-      start: "top 85%",
-    },
-  });
+    duration: 0.6,
+  };
 
-  // ── Section headers blanket fade ──
-  gsap.utils.toArray("section > div > .text-center").forEach(function(header) {
-    gsap.from(header, {
-      y: 20,
+  function fadeUp(el, opts) {
+    gsap.from(el, {
+      y: opts.y || 30,
       opacity: 0,
-      duration: 0.5,
+      duration: opts.duration || 0.6,
       ease: "power3.out",
+      stagger: opts.stagger || 0,
+      immediateRender: false,
       scrollTrigger: {
-        trigger: header,
-        start: "top 85%",
+        trigger: opts.trigger || el,
+        start: opts.start || "top 88%",
+        toggleActions: "play none none none",
+        once: true,
       },
     });
+  }
+
+  // ── Hero title ──
+  fadeUp("#hero-title", { y: 20, duration: 0.5, start: "top 80%" });
+
+  // ── Feature cards stagger ──
+  fadeUp("#features .group", { trigger: "#features .grid", stagger: 0.08 });
+
+  // ── Section headers ──
+  gsap.utils.toArray("section > div > .text-center").forEach(function(header) {
+    fadeUp(header, { y: 20, duration: 0.5 });
   });
 
   // ── Demo cards ──
-  gsap.from("#demo .grid > .glass", {
-    y: 30,
-    opacity: 0,
-    duration: 0.5,
-    stagger: 0.1,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: "#demo .grid",
-      start: "top 85%",
-    },
-  });
+  fadeUp("#demo .grid > .glass", { trigger: "#demo .grid", stagger: 0.1 });
 
   // ── Pricing cards ──
-  gsap.from("#pricing .grid > .glass, #pricing .grid > .glass-strong", {
-    y: 20,
-    opacity: 0,
-    duration: 0.5,
+  fadeUp("#pricing .grid > .glass, #pricing .grid > .glass-strong", {
+    trigger: "#pricing .grid",
     stagger: 0.15,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: "#pricing .grid",
-      start: "top 85%",
-    },
+    start: "top 85%",
   });
 
   // ── FAQ items ──
-  gsap.from("#faq details", {
-    y: 10,
-    opacity: 0,
-    duration: 0.4,
-    stagger: 0.05,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: "#faq .space-y-2",
-      start: "top 85%",
-    },
-  });
+  fadeUp("#faq details", { trigger: "#faq .space-y-2", stagger: 0.05, y: 10, duration: 0.4 });
 
   // ── CTA ──
-  gsap.from("#download .glass", {
-    scale: 0.97,
-    opacity: 0,
-    duration: 0.6,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: "#download",
-      start: "top 80%",
-    },
-  });
+  fadeUp("#download .glass", { trigger: "#download", start: "top 85%", y: 0 });
 
-  // ── Init vanilla-tilt on tilt-enabled elements ──
+  // ── Vanilla-tilt ──
   if (!prefersReduced) {
-    VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {});
+    try {
+      VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {});
+    } catch(e) {}
   }
 
-  ScrollTrigger.refresh();
+  // ── Lenis smooth scroll ──
+  if (!prefersReduced) {
+    var lenis = new Lenis({
+      duration: 1.2,
+      easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)) },
+      smoothWheel: true,
+    });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  // ── Refresh ScrollTrigger after everything is set up ──
+  requestAnimationFrame(function() { ScrollTrigger.refresh(); });
 }
 
 if (document.readyState === "loading") {

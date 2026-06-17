@@ -51,6 +51,7 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   position: relative;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body::before {
@@ -77,6 +78,7 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
   border: var(--glass-border) !important;
   border-radius: var(--radius-panel) !important;
+  transition: background 0.4s ease, border-color 0.4s ease !important;
 }
 
 .glass-strong {
@@ -85,6 +87,7 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
   border: var(--glass-border) !important;
   border-radius: var(--radius-panel) !important;
+  transition: background 0.4s ease, border-color 0.4s ease !important;
 }
 
 /* ── Primary button (auto-contrast for both themes) ── */
@@ -100,7 +103,7 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: background 0.4s ease, color 0.4s ease, opacity 0.2s ease;
   border: none;
 }
 .btn-primary:hover {
