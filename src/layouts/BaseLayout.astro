@@ -4,6 +4,8 @@ export interface Props {
   description?: string;
 }
 
+import "@/styles/global.css";
+
 const { title, description = "Zen Zakura Macro — professional macro automation tool" } = Astro.props;
 ---
 
@@ -18,7 +20,6 @@ const { title, description = "Zen Zakura Macro — professional macro automation
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/src/styles/global.css" />
     <title>{title}</title>
   </head>
   <body class="min-h-screen">
