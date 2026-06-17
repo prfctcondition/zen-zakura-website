@@ -1,0 +1,51 @@
+﻿---
+const faqs = [
+  {
+    q: "What is Zen Zakura Macro?",
+    a: "A professional macro automation tool for Windows. Record keyboard and mouse actions, create text snippets, customize themes, and automate repetitive tasks with Japanese precision.",
+  },
+  {
+    q: "Is it free?",
+    a: "Yes! The Free tier includes up to 3 macros and basic features. Upgrade to Pro ($5/month) for unlimited macros, snippets, theme editor, and cloud sync.",
+  },
+  {
+    q: "How do I upgrade to Pro?",
+    a: "Create an account in-app or on this website, then click Upgrade to Pro. You'll be redirected to Stripe for secure payment.",
+  },
+  {
+    q: "Can I sync my macros across devices?",
+    a: "Yes, Pro users get cloud sync. Your macros, snippets, and themes are stored securely and synced across all your Windows devices.",
+  },
+  {
+    q: "Is my data secure?",
+    a: "Absolutely. Passwords are hashed with PBKDF2, sessions use JWT tokens, and all communication is encrypted via HTTPS.",
+  },
+];
+---
+
+<section id="faq" class="relative py-24 md:py-32 px-4 bg-sakura-pale/30">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block text-xs font-medium text-sakura uppercase tracking-widest mb-4">FAQ</span>
+      <h2 class="font-serif-jp text-3xl md:text-5xl font-bold text-ink mb-4">
+        Any <span class="text-sakura">questions</span>?
+      </h2>
+    </div>
+
+    <div class="space-y-3">
+      {faqs.map((faq) => (
+        <details class="group glass rounded-xl overflow-hidden transition-all duration-200 open:shadow-md">
+          <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none text-sm font-medium text-ink hover:text-sakura transition-colors duration-200">
+            {faq.q}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 transition-transform duration-200 group-open:rotate-180">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-4 text-sm text-ink/60 leading-relaxed">
+            {faq.a}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

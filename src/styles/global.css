@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+/* Custom theme tokens */
+@theme {
+  --color-sakura: #EC4899;
+  --color-sakura-light: #F9A8D4;
+  --color-sakura-pale: #FDF2F8;
+  --color-crimson: #BE123C;
+  --color-washi: #FFFAF5;
+  --color-ink: #2D1B2E;
+  --color-gold: #D97706;
+  --color-sky: #E8F4FD;
+  --color-glass: rgba(255, 255, 255, 0.25);
+  --color-glass-border: rgba(255, 255, 255, 0.4);
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  background-color: var(--color-washi);
+  color: var(--color-ink);
+  overflow-x: hidden;
+}
+
+/* Font utilities */
+.font-serif-jp {
+  font-family: "Noto Serif JP", serif;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Sakura petal animation */
+@keyframes sakura-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg) translateX(200px);
+    opacity: 0;
+  }
+}
+
+@keyframes sakura-sway {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(30px);
+  }
+  75% {
+    transform: translateX(-30px);
+  }
+}
+
+.petal {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(ellipse at 30% 30%, #F9A8D4, #EC4899);
+  border-radius: 50% 0 50% 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  animation: sakura-fall linear infinite, sakura-sway ease-in-out infinite;
+}
+
+/* Slow scroll reveal base */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .petal {
+    display: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,0 +1,160 @@
+﻿---
+// GSAP ScrollTrigger animations - loaded only in browser
+// Uses Astro's client:load or client:idle directive
+---
+
+<script>
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+function initAnimations() {
+  // Only run if user hasn't disabled motion
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReduced) return;
+
+  // Hero parallax
+  gsap.to(".hero-content", {
+    y: 60,
+    opacity: 0.6,
+    scrollTrigger: {
+      trigger: "section:first-of-type",
+      start: "top top",
+      end: "bottom top",
+      scrub: 1,
+    },
+  });
+
+  // Hero decorative blobs parallax (slower)
+  gsap.to(".hero-blob-1", {
+    y: -40,
+    x: 20,
+    scrollTrigger: {
+      trigger: "section:first-of-type",
+      start: "top top",
+      end: "bottom top",
+      scrub: 1.5,
+    },
+  });
+
+  gsap.to(".hero-blob-2", {
+    y: -30,
+    x: -15,
+    scrollTrigger: {
+      trigger: "section:first-of-type",
+      start: "top top",
+      end: "bottom top",
+      scrub: 1.5,
+    },
+  });
+
+  // Staggered reveal for feature cards
+  gsap.from(".feature-card", {
+    y: 60,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.12,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: "#features .grid",
+      start: "top 85%",
+    },
+  });
+
+  // Section headers reveal
+  gsap.utils.toArray(".section-header").forEach((header) => {
+    gsap.from(header, {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: header,
+        start: "top 85%",
+      },
+    });
+  });
+
+  // Demo section mockup reveal
+  gsap.from(".demo-mockup", {
+    y: 80,
+    opacity: 0,
+    duration: 0.8,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: ".demo-mockup",
+      start: "top 85%",
+    },
+  });
+
+  gsap.from(".demo-card", {
+    y: 40,
+    opacity: 0,
+    duration: 0.6,
+    stagger: 0.15,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: "#demo .grid",
+      start: "top 80%",
+    },
+  });
+
+  // Pricing cards stagger
+  gsap.from(".pricing-card", {
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.2,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: "#pricing .grid",
+      start: "top 85%",
+    },
+  });
+
+  // FAQ items stagger
+  gsap.from("#faq details", {
+    y: 20,
+    opacity: 0,
+    duration: 0.5,
+    stagger: 0.08,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: "#faq .space-y-3",
+      start: "top 85%",
+    },
+  });
+
+  // CTA section reveal
+  gsap.from("#download .relative.z-10", {
+    scale: 0.95,
+    opacity: 0,
+    duration: 0.8,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: "#download",
+      start: "top 80%",
+    },
+  });
+
+  // Floating badge bob animation (continuous)
+  gsap.to(".floating-badge", {
+    y: -8,
+    duration: 2,
+    ease: "power1.inOut",
+    yoyo: true,
+    repeat: -1,
+  });
+
+  // Refresh on resize
+  ScrollTrigger.refresh();
+}
+
+// Wait for DOM
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initAnimations);
+} else {
+  initAnimations();
+}
+</script>

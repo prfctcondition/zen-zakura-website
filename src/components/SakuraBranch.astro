@@ -1,0 +1,63 @@
+﻿---
+// SVG sakura branch decorations (side ornaments)
+export interface Props {
+  side: "left" | "right";
+}
+const { side } = Astro.props;
+---
+
+<svg
+  class="fixed top-0 h-screen pointer-events-none z-0 opacity-20"
+  class:list={{ "left-0 -scale-x-100": side === "left", "right-0": side === "right" }}
+  width="180"
+  height="100%"
+  viewBox="0 0 180 1080"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- Branch -->
+  <path
+    d={side === "left"
+      ? "M180 1080 C120 900 140 700 100 500 C80 380 40 300 60 200 C70 140 30 80 60 0"
+      : "M0 0 C60 180 40 380 80 580 C100 700 140 780 120 880 C110 940 150 1000 120 1080"}
+    stroke="#8B5E3C"
+    stroke-width="6"
+    stroke-linecap="round"
+  />
+  <!-- Sub-branches -->
+  <path
+    d={side === "left"
+      ? "M100 500 C140 460 170 440 160 400"
+      : "M80 580 C40 620 10 640 20 680"}
+    stroke="#8B5E3C"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+  <path
+    d={side === "left"
+      ? "M60 200 C90 170 120 150 130 120"
+      : "M120 880 C90 910 60 930 50 960"}
+    stroke="#8B5E3C"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+  <!-- Sakura flowers -->
+  <!-- Cluster 1 -->
+  <g transform={side === "left" ? "translate(155, 390)" : "translate(25, 590)"}>
+    <circle cx="0" cy="0" r="8" fill="#F9A8D4" opacity="0.8" />
+    <circle cx="8" cy="-6" r="7" fill="#F472B6" opacity="0.7" />
+    <circle cx="-7" cy="-5" r="6" fill="#FBCFE8" opacity="0.9" />
+    <circle cx="-3" cy="7" r="5" fill="#EC4899" opacity="0.6" />
+  </g>
+  <!-- Cluster 2 -->
+  <g transform={side === "left" ? "translate(125, 110)" : "translate(55, 870)"}>
+    <circle cx="0" cy="0" r="6" fill="#FBCFE8" opacity="0.8" />
+    <circle cx="6" cy="-4" r="5" fill="#EC4899" opacity="0.6" />
+    <circle cx="-5" cy="-3" r="5" fill="#F9A8D4" opacity="0.7" />
+  </g>
+  <!-- Cluster 3 -->
+  <g transform={side === "left" ? "translate(170, 250)" : "translate(10, 350)"}>
+    <circle cx="0" cy="0" r="7" fill="#F9A8D4" opacity="0.7" />
+    <circle cx="-6" cy="4" r="5" fill="#FBCFE8" opacity="0.8" />
+  </g>
+</svg>

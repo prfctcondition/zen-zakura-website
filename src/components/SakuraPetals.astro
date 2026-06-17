@@ -1,0 +1,25 @@
+﻿---
+// Floating sakura petals (CSS animations, no JS needed)
+const petals = Array.from({ length: 15 }, (_, i) => ({
+  id: i,
+  left: `${Math.random() * 100}%`,
+  delay: `${Math.random() * 10}s`,
+  duration: `${8 + Math.random() * 12}s`,
+  size: `${14 + Math.random() * 14}px`,
+  swayDuration: `${3 + Math.random() * 4}s`,
+  swayDelay: `${Math.random() * 5}s`,
+}));
+---
+
+{petals.map((p) => (
+  <div
+    class="petal"
+    style={`
+      left: ${p.left};
+      width: ${p.size};
+      height: ${p.size};
+      animation-delay: ${p.delay}, ${p.swayDelay};
+      animation-duration: ${p.duration}, ${p.swayDuration};
+    `}
+  />
+))}
