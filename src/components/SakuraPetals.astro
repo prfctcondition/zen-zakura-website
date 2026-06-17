@@ -4,8 +4,8 @@ const petals = Array.from({ length: 44 }, (_, i) => {
   const duration = 12 + Math.random() * 14;
   return {
     left: fromLeft
-      ? `${Math.random() * 30}%`
-      : `${Math.random() * 95}%`,
+      ? `${-40 - Math.random() * 40}%`
+      : `${-10 + Math.random() * 50}%`,
     size: `${21 + Math.random() * 24}px`,
     duration: `${duration}s`,
     fallDelay: `-${Math.random() * 24}s`,

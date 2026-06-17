@@ -166,10 +166,10 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
 
 @keyframes sakura-wind {
   0%   { translate: 0; }
-  20%  { translate: 15vw; }
-  50%  { translate: 40vw; }
-  80%  { translate: 65vw; }
-  100% { translate: 85vw; }
+  20%  { translate: 30vw; }
+  50%  { translate: 70vw; }
+  80%  { translate: 110vw; }
+  100% { translate: 140vw; }
 }
 
 @keyframes sakura-rotate {
