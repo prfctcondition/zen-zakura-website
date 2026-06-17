@@ -159,10 +159,10 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
 
 /* ── Sakura petal animation ── */
 @keyframes sakura-fall {
-  0%   { top: -12vh; opacity: 0; }
-  10%  { opacity: 1; }
-  85%  { opacity: 1; }
-  100% { top: 112vh; opacity: 0; }
+  0%   { top: -30vh; opacity: 0; }
+  5%   { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { top: 120vh; opacity: 0; }
 }
 
 @keyframes sakura-wind {

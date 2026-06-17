@@ -1,8 +1,8 @@
 ﻿---
-const petals = Array.from({ length: 35 }, (_, i) => {
-  // First 20 petals: start from top-left corner, blow across screen
-  // Remaining 15: start scattered across top, fall more straight down
-  const fromLeft = i < 20;
+const petals = Array.from({ length: 44 }, (_, i) => {
+  // First 25 petals: start from top-left corner, blow across screen
+  // Remaining 19: start scattered across top, fall more straight down
+  const fromLeft = i < 25;
   return {
     left: fromLeft
       ? `${Math.random() * 30}%`           // top-left cluster
