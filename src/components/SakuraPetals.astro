@@ -1,18 +1,17 @@
 ﻿---
 const petals = Array.from({ length: 44 }, (_, i) => {
-  // First 25 petals: start from top-left corner, blow across screen
-  // Remaining 19: start scattered across top, fall more straight down
   const fromLeft = i < 25;
+  const duration = 12 + Math.random() * 14;
   return {
     left: fromLeft
-      ? `${Math.random() * 30}%`           // top-left cluster
-      : `${Math.random() * 95}%`,           // scattered across top
+      ? `${Math.random() * 30}%`
+      : `${Math.random() * 95}%`,
     size: `${14 + Math.random() * 16}px`,
-    duration: `${12 + Math.random() * 14}s`,
+    duration: `${duration}s`,
     fallDelay: `-${Math.random() * 24}s`,
     windDuration: fromLeft
-      ? `${7 + Math.random() * 8}s`         // faster wind = blow across
-      : `${12 + Math.random() * 10}s`,       // slower wind = less drift
+      ? `${7 + Math.random() * 8}s`
+      : `${12 + Math.random() * 10}s`,
     windDelay: `-${Math.random() * 15}s`,
     rotateDuration: `${6 + Math.random() * 8}s`,
     rotateDelay: `-${Math.random() * 10}s`,
@@ -27,8 +26,8 @@ const petals = Array.from({ length: 44 }, (_, i) => {
       left: ${p.left};
       width: ${p.size};
       height: ${p.size};
-      animation-duration: ${p.duration}, ${p.windDuration}, ${p.rotateDuration};
-      animation-delay: ${p.fallDelay}, ${p.windDelay}, ${p.rotateDelay};
+      animation-duration: ${p.duration}, ${p.windDuration}, ${p.rotateDuration}, ${p.duration};
+      animation-delay: ${p.fallDelay}, ${p.windDelay}, ${p.rotateDelay}, ${p.fallDelay};
     `}
   />
 ))}

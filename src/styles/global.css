@@ -159,10 +159,8 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
 
 /* ── Sakura petal animation ── */
 @keyframes sakura-fall {
-  0%   { top: -30vh; opacity: 0; }
-  5%   { opacity: 1; }
-  88%  { opacity: 1; }
-  100% { top: 120vh; opacity: 0; }
+  0%   { top: -30vh; }
+  100% { top: 120vh; }
 }
 
 @keyframes sakura-wind {
@@ -176,6 +174,13 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
 @keyframes sakura-rotate {
   0%   { rotate: 0deg; }
   100% { rotate: 720deg; }
+}
+
+@keyframes sakura-fade {
+  0%   { opacity: 0; }
+  8%   { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 .petal {
@@ -193,7 +198,7 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
-  animation: sakura-fall linear infinite, sakura-wind linear infinite, sakura-rotate linear infinite;
+  animation: sakura-fall linear infinite, sakura-wind linear infinite, sakura-rotate linear infinite, sakura-fade linear infinite;
 }
 
 /* ── Theme toggle icon animation ── */
