@@ -190,6 +190,8 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
   pointer-events: none;
   z-index: -1;
   background-image: url('/petal.webp');
+  background-color: var(--petal-color-1);
+  background-blend-mode: multiply;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
