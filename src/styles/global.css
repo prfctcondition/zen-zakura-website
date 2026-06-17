@@ -192,7 +192,7 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
-  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
   animation: sakura-fall linear infinite, sakura-wind linear infinite, sakura-rotate linear infinite;
 }
 
