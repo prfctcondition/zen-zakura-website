@@ -189,12 +189,8 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
   opacity: 0;
   pointer-events: none;
   z-index: -1;
-  background-image: url('/petal.webp');
-  background-color: var(--petal-color-1);
-  background-blend-mode: multiply;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  background: radial-gradient(ellipse at 30% 30%, var(--petal-color-1), var(--petal-color-2));
+  border-radius: 60% 0 50% 20%;
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
   animation: sakura-fall linear infinite, sakura-wind linear infinite, sakura-rotate linear infinite, sakura-fade linear infinite;
 }
