@@ -62,12 +62,13 @@ const features = [
           data-tilt-glare="true"
           data-tilt-max-glare="0.1"
         >
-          {f.pro && (
-            <div class="mb-2 text-[10px] tracking-wider text-[var(--color-text)]">pro</div>
-          )}
+          <div class="flex flex-col h-full">
+            {f.pro && (
+              <div class="text-[10px] tracking-wider text-[var(--color-text)]">pro</div>
+            )}
 
-          <div class="flex items-center gap-3 h-full">
-            <div class="shrink-0 w-9 h-9 rounded-[var(--radius-button)] border border-[var(--color-text)] flex items-center justify-center text-[var(--color-text)] group-hover:opacity-70 transition-opacity duration-300">
+            <div class="flex items-center gap-3 flex-1 min-h-0">
+              <div class="shrink-0 w-9 h-9 rounded-[var(--radius-button)] border border-[var(--color-text)] flex items-center justify-center text-[var(--color-text)] group-hover:opacity-70 transition-opacity duration-300">
               {f.icon === "record" && (
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
               )}
@@ -91,6 +92,7 @@ const features = [
               <h3 class="text-base font-bold text-[var(--color-text)] mb-1">{f.title}</h3>
               <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{f.desc}</p>
             </div>
+          </div>
           </div>
         </div>
       ))}
