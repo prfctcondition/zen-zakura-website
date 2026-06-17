@@ -69,17 +69,15 @@ function initAnimations() {
     gsap.ticker.lagSmoothing(0);
   }
 
-  // ── Smooth scroll for anchor links ──
+  // ── Smooth scroll for anchor links via Lenis ──
   document.querySelectorAll('a[href^="#"]').forEach(function(link) {
     link.addEventListener("click", function(e) {
       var targetId = this.getAttribute("href");
       if (targetId === "#") return;
       var target = document.querySelector(targetId);
-      if (target) {
+      if (target && lenis) {
         e.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-        // offset -80px for fixed navbar
-        window.scrollBy(0, -80);
+        lenis.scrollTo(target, { offset: -80 });
       }
     });
   });
