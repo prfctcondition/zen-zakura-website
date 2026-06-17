@@ -91,7 +91,7 @@ body::before {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(8px);
+  filter: blur(6px);
 }
 
 body::after {
@@ -179,8 +179,9 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
 
 @keyframes sakura-fade {
   0%   { opacity: 0; }
-  8%   { opacity: 1; }
-  85%  { opacity: 1; }
+  20%  { opacity: 1; }
+  75%  { opacity: 1; }
+  95%  { opacity: 0; }
   100% { opacity: 0; }
 }
 
