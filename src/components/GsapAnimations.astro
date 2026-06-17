@@ -57,8 +57,9 @@ function initAnimations() {
   }
 
   // ── Lenis smooth scroll ──
+  var lenis = null;
   if (!prefersReduced) {
-    var lenis = new Lenis({
+    lenis = new Lenis({
       duration: 1.2,
       easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)) },
       smoothWheel: true,
@@ -66,6 +67,21 @@ function initAnimations() {
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
+  }
+
+  // ── Smooth scroll for anchor links via Lenis ──
+  if (lenis) {
+    document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+      link.addEventListener("click", function(e) {
+        var targetId = this.getAttribute("href");
+        if (targetId === "#") return;
+        var target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          lenis.scrollTo(target, { offset: -80 });
+        }
+      });
+    });
   }
 
   requestAnimationFrame(function() { ScrollTrigger.refresh(); });
