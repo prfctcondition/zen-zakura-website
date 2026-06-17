@@ -1,18 +1,20 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/Navbar.astro";
 ---
 
 <BaseLayout title="account — zen zakura マクロ">
+  <Navbar />
   <main class="min-h-screen flex items-center justify-center px-4 py-20">
-    <div class="relative z-10 w-full max-w-md" id="account-app">
+    <div class="relative z-10 w-full max-w-lg" id="account-app">
       <!-- Loading state -->
-      <div id="loading-state" class="glass p-8 text-center">
+      <div id="loading-state" class="glass p-10 text-center card-glow" data-tilt data-tilt-max="2" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.05">
         <div class="animate-spin w-5 h-5 border border-[var(--color-text)] border-t-transparent rounded-full mx-auto mb-3" />
         <p class="text-sm text-[var(--color-text-secondary)]">loading...</p>
       </div>
 
       <!-- Login form -->
-      <div id="login-form" class="glass p-8 hidden">
+      <div id="login-form" class="glass p-10 card-glow hidden" data-tilt data-tilt-max="2" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.05">
         <div class="text-center mb-8">
           <h1 class="text-xl font-bold text-[var(--color-text)] mb-1">
             zen zakura <span class="text-[var(--color-text-secondary)]">マクロ</span>
@@ -63,7 +65,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
       </div>
 
       <!-- Dashboard -->
-      <div id="dashboard" class="glass p-8 hidden">
+      <div id="dashboard" class="glass p-10 card-glow hidden" data-tilt data-tilt-max="2" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.05">
         <div class="text-center mb-6">
           <div class="w-14 h-14 rounded-full border border-[var(--color-text)] mx-auto mb-3 flex items-center justify-center">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-[var(--color-text)]">
@@ -121,9 +123,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
       try {
         const res = await fetch(`${API_BASE}/verify`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token: authToken }),
+          headers: { Authorization: `Bearer ${authToken}` },
         });
 
         if (res.ok) {
