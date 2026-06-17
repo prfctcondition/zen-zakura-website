@@ -19,6 +19,8 @@
   --btn-primary-bg: #3A2529;
   --btn-primary-text: #FFF5F6;
   --bg-overlay: radial-gradient(ellipse at center, transparent 35%, rgba(139, 94, 102, 0.12) 70%, rgba(139, 94, 102, 0.25) 100%);
+  --petal-color-1: #FBCFE8;
+  --petal-color-2: #F9A8D4;
 }
 
 /* ── Dark theme ── */
@@ -40,6 +42,8 @@
   --btn-primary-bg: #FFF0F2;
   --btn-primary-text: #0F0A10;
   --bg-overlay: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.25) 70%, rgba(0, 0, 0, 0.45) 100%);
+  --petal-color-1: #9D174D;
+  --petal-color-2: #831843;
 }
 
 /* ── Lenis scroll + navbar offset ── */
@@ -179,9 +183,10 @@ h1, h2, h3, h4, h5, h6, p, a, button, label, span, li, div, summary {
 
 .petal {
   position: fixed;
+  top: 0;
   width: 16px;
   height: 16px;
-  background: radial-gradient(ellipse at 30% 30%, var(--color-text), var(--color-text-secondary));
+  background: radial-gradient(ellipse at 30% 30%, var(--petal-color-1), var(--petal-color-2));
   border-radius: 50% 0 50% 0;
   opacity: 0;
   pointer-events: none;
