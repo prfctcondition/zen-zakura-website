@@ -3,35 +3,37 @@
 /* ── Light theme (default) ── */
 :root {
   --bg-image: url('/sakura_light.webp');
-  --glass-bg: rgba(255, 245, 246, 0.45);
-  --glass-strong-bg: rgba(255, 245, 246, 0.6);
-  --glass-blur: 16px;
-  --glass-border: 1px solid rgba(139, 94, 102, 0.25);
-  --color-text: #8B5E66;
-  --color-text-muted: rgba(139, 94, 102, 0.55);
-  --color-text-dim: rgba(139, 94, 102, 0.3);
+  --glass-bg: rgba(255, 245, 246, 0.75);
+  --glass-strong-bg: rgba(255, 245, 246, 0.88);
+  --glass-blur: 24px;
+  --glass-saturate: 120%;
+  --glass-border: 1px solid rgba(58, 37, 41, 0.15);
+  --color-text: #3A2529;
+  --color-text-muted: rgba(58, 37, 41, 0.6);
+  --color-text-dim: rgba(58, 37, 41, 0.3);
   --input-bg: #FFFFFF;
-  --input-border: 1px solid #8B5E66;
+  --input-border: 1px solid #3A2529;
   --radius-panel: 16px;
   --radius-button: 8px;
-  --color-accent: #8B5E66;
+  --color-accent: #3A2529;
 }
 
 /* ── Dark theme ── */
 [data-theme="dark"] {
   --bg-image: url('/sakura_dark.webp');
-  --glass-bg: rgba(20, 13, 22, 0.65);
-  --glass-strong-bg: rgba(20, 13, 22, 0.8);
-  --glass-blur: 16px;
-  --glass-border: 1px solid rgba(236, 170, 186, 0.3);
-  --color-text: #E8A0BF;
-  --color-text-muted: rgba(232, 160, 191, 0.55);
-  --color-text-dim: rgba(232, 160, 191, 0.3);
-  --input-bg: #1A111B;
-  --input-border: 1px solid #E8A0BF;
+  --glass-bg: rgba(15, 10, 16, 0.85);
+  --glass-strong-bg: rgba(15, 10, 16, 0.93);
+  --glass-blur: 24px;
+  --glass-saturate: 140%;
+  --glass-border: 1px solid rgba(255, 240, 242, 0.2);
+  --color-text: #FFF0F2;
+  --color-text-muted: rgba(255, 240, 242, 0.6);
+  --color-text-dim: rgba(255, 240, 242, 0.3);
+  --input-bg: #0F0A10;
+  --input-border: 1px solid #FFF0F2;
   --radius-panel: 16px;
   --radius-button: 8px;
-  --color-accent: #E8A0BF;
+  --color-accent: #FFF0F2;
 }
 
 /* ── Base ── */
@@ -59,19 +61,19 @@ a, button { text-transform: lowercase; }
 
 /* ── Glassmorphism ── */
 .glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: var(--glass-border);
-  border-radius: var(--radius-panel);
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
+  border: var(--glass-border) !important;
+  border-radius: var(--radius-panel) !important;
 }
 
 .glass-strong {
-  background: var(--glass-strong-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: var(--glass-border);
-  border-radius: var(--radius-panel);
+  background: var(--glass-strong-bg) !important;
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
+  border: var(--glass-border) !important;
+  border-radius: var(--radius-panel) !important;
 }
 
 /* ── Sakura petal animation ── */
