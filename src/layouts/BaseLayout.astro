@@ -29,6 +29,10 @@ const { title, description = "zen zakura マクロ — professional macro automa
         // Theme — default to light
         var theme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', theme);
+        // Paddle checkout redirect: _ptxn or checkout=success → /account
+        if (window.location.search.indexOf('_ptxn') >= 0 || window.location.search.indexOf('checkout=success') >= 0) {
+          window.location.replace('/account' + window.location.search);
+        }
       })();
     </script>
   </head>
