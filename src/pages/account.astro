@@ -99,6 +99,7 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
           <a href="#" id="upgrade-btn" class="btn-primary w-full justify-center no-underline">upgrade to pro</a>
           <a href="#" id="manage-billing-btn" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-[var(--radius-button)] border border-[var(--color-text)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--glass-bg)] transition-all duration-200 no-underline cursor-pointer">manage billing</a>
           <a href="/admin" id="admin-btn" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-[var(--radius-button)] bg-[var(--color-text)] text-white text-sm font-medium hover:opacity-80 transition-all duration-200 no-underline cursor-pointer hidden">admin panel</a>
+          <div id="dashboard-error" class="text-xs text-[var(--color-text)] hidden text-center py-2"></div>
         </div>
 
         <!-- Password change card -->
@@ -385,8 +386,11 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
     });
 
     // ── Stripe ──
+    var dashError = document.getElementById("dashboard-error");
+
     upgradeBtn.addEventListener("click", async function(e) {
       e.preventDefault();
+      dashError.classList.add("hidden");
       try {
         var res = await fetchWithTimeout(API_BASE + "/create-checkout-session", {
           method: "POST",
@@ -399,15 +403,18 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
         if (res.ok && data.url) {
           window.location.href = data.url;
         } else {
-          showError(errorMsg, data.error || "checkout unavailable. try again later.");
+          dashError.textContent = data.error || "checkout unavailable. try again later.";
+          dashError.classList.remove("hidden");
         }
       } catch (e) {
-        showError(errorMsg, "cannot connect to payment server.");
+        dashError.textContent = "cannot connect to payment server.";
+        dashError.classList.remove("hidden");
       }
     });
 
     manageBillingBtn.addEventListener("click", async function(e) {
       e.preventDefault();
+      dashError.classList.add("hidden");
       try {
         var res = await fetchWithTimeout(API_BASE + "/create-portal-session", {
           method: "POST",
@@ -417,9 +424,12 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
           },
         });
         var data = await res.json();
-        if (data.url) window.location.href = data.url;
+        if (data.url) { window.location.href = data.url; return; }
+        dashError.textContent = data.error || "portal unavailable.";
+        dashError.classList.remove("hidden");
       } catch (e) {
-        showError(errorMsg, "cannot connect to billing portal.");
+        dashError.textContent = "cannot connect to billing portal.";
+        dashError.classList.remove("hidden");
       }
     });
 
