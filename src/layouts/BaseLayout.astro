@@ -26,11 +26,8 @@ const { title, description = "zen zakura マクロ — professional macro automa
         // Always start at top
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
         window.scrollTo(0, 0);
-        // Theme
-        var theme = localStorage.getItem('theme');
-        if (!theme) {
-          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
+        // Theme — default to light
+        var theme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', theme);
       })();
     </script>
