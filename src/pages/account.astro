@@ -396,7 +396,11 @@ import SakuraPetals from "@/components/SakuraPetals.astro";
           },
         });
         var data = await res.json();
-        if (data.url) window.location.href = data.url;
+        if (res.ok && data.url) {
+          window.location.href = data.url;
+        } else {
+          showError(errorMsg, data.error || "checkout unavailable. try again later.");
+        }
       } catch (e) {
         showError(errorMsg, "cannot connect to payment server.");
       }
